@@ -1,0 +1,131 @@
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 13
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> mysql as simple calculator;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mysql as simple calculator' at line 1
+MariaDB [(none)]> select sin(pi()/4),(4+1)*5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1
+MariaDB [(none)]> select sin(pi()/4),(4+1)*5;
++--------------------+---------+
+| sin(pi()/4)        | (4+1)*5 |
++--------------------+---------+
+| 0.7071067811865475 |      25 |
++--------------------+---------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> select version(),select now();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select now()' at line 1
+MariaDB [(none)]> select version(); select now();
++-----------------+
+| version()       |
++-----------------+
+| 10.1.28-MariaDB |
++-----------------+
+1 row in set (0.00 sec)
+
++---------------------+
+| now()               |
++---------------------+
+| 2020-07-31 13:34:04 |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> select user(),current_date;
++----------------+--------------+
+| user()         | current_date |
++----------------+--------------+
+| root@localhost | 2020-07-31   |
++----------------+--------------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> If you do not execute a quary then use \c;
+ERROR: No query specified
+
+MariaDB [(none)]> select
+    -> user()
+    -> \c
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| sadik              |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [(none)]> use pets;
+Database changed
+MariaDB [pets]> show tables;
++----------------+
+| Tables_in_pets |
++----------------+
+| cats           |
++----------------+
+1 row in set (0.00 sec)
+
+MariaDB [pets]> describe cats;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(150)     | NO   |     | NULL    |                |
+| owner | varchar(150)     | NO   |     | NULL    |                |
+| birth | date             | NO   |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+4 rows in set (0.10 sec)
+
+MariaDB [pets]> select * from cats;
++----+---------+--------+------------+
+| id | name    | owner  | birth      |
++----+---------+--------+------------+
+|  1 | sandy   | lennon | 2015-01-03 |
+|  3 | charlie | river  | 2016-05-21 |
++----+---------+--------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [pets]> select name,birth,curdate(),timestampdiff(year,birth,curdate()) as age from cats:
+    -> :
+    -> pets:
+    -> :
+    -> |c
+    -> \C
+ERROR: Usage: \C charset_name | charset charset_name
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':
+:
+pets:
+:
+|c' at line 1
+MariaDB [pets]> select * from cats;
++----+---------+--------+------------+
+| id | name    | owner  | birth      |
++----+---------+--------+------------+
+|  1 | sandy   | lennon | 2015-01-03 |
+|  3 | charlie | river  | 2016-05-21 |
++----+---------+--------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [pets]> select name,birth,curdate(),timestampdiff(year,birth,curdate()) as age from cats;
++---------+------------+------------+------+
+| name    | birth      | curdate()  | age  |
++---------+------------+------------+------+
+| sandy   | 2015-01-03 | 2020-07-31 |    5 |
+| charlie | 2016-05-21 | 2020-07-31 |    4 |
++---------+------------+------------+------+
+2 rows in set (0.00 sec)
+
+MariaDB [pets]>

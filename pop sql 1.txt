@@ -1,0 +1,126 @@
+CREATE TABLE student (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(20),
+    major VARCHAR(20)
+);
+
+CREATE TABLE student (
+    student_id INT,
+    name VARCHAR(20),
+    major VARCHAR(20),
+    PRIMARY KEY(student_id)
+);
+
+DESCRIBE student;
+
+DROP TABLE student;
+
+ALTER TABLE student ADD gpa DECIMAL(3,2);
+
+ALTER TABLE student DROP COLUMN gpa;
+
+INSERT INTO student VALUES(1, 'Jack', 'Biology');
+
+SELECT * FROM student;
+
+INSERT INTO student VALUES(2, 'Kate', 'Sociology');
+
+INSERT INTO student(student_id, name) VALUES(3,'Claire');
+
+INSERT INTO student VALUES(4,'Jack','Biology');
+
+INSERT INTO student VALUES(5,'Mike','Computer Science');
+
+DROP TABLE student;
+
+CREATE TABLE student (
+    student_id INT,
+    name VARCHAR(20) NOT NULL,
+    major VARCHAR(20) UNIQUE,
+    PRIMARY KEY(student_id)
+);
+
+DESCRIBE TABLE student;
+
+DESCRIBE student;
+
+CREATE TABLE student (
+    student_id INT,
+    name VARCHAR(20),
+    major VARCHAR(20) DEFAULT 'Undecided',
+    PRIMARY KEY(student_id)
+);
+
+SELECT * FROM student;
+
+DROP TABLE student;
+
+CREATE TABLE student (
+    student_id INT AUTO_INCREMENT,
+    name VARCHAR(20),
+    major VARCHAR(20) DEFAULT 'Undecided',
+    PRIMARY KEY(student_id)
+);
+
+INSERT INTO student(name,major) VALUES('Jack','Biology');
+INSERT INTO student(name,major) VALUES('Kate','Sociology');
+INSERT INTO student(name,major) VALUES('Jack','Biology');
+INSERT INTO student(name,major) VALUES('Mike','Computer Science');
+
+UPDATE student SET major = 'Bio' WHERE major = 'Biology';
+UPDATE student SET major = 'Chemistry' WHERE major = 'Undecided';
+
+SELECT * FROM student;
+
+UPDATE student SET major = 'Comp Sci' WHERE major = 'Computer Science';
+UPDATE student SET major = 'Comp Sci' WHERE student_id = 4;
+
+UPDATE student SET major = 'Biochemistry' WHERE major ='Bio' OR major = 'Chemistry';
+
+UPDATE student SET name='Tom', major ='Undecided' WHERE student_id = 1;
+
+UPDATE student SET major='Undecided';
+
+SELECT * FROM student;
+
+DELETE FROM student WHERE student_id = 5;
+
+DELETE FROM student WHERE name = 'Tom';
+
+DELETE FROM student WHERE name = 'Jack' AND major = 'Biology';
+
+DELETE FROM student;
+
+INSERT INTO student(name,major) VALUES('Jack','Biology');
+INSERT INTO student(name,major) VALUES('Kate','Sociology');
+INSERT INTO student(name,major) VALUES('Claire','Chemistry');
+INSERT INTO student(name,major) VALUES('Jack','Biology'), ('Mike','Computer Science');
+
+SELECT * FROM student;
+
+DROP TABLE student;
+
+SELECT name FROM student;
+SELECT name,major FROM student;
+SELECT student.name,student.major FROM student;
+SELECT student.name,student.major FROM student ORDER BY name;
+SELECT student.name,student.major FROM student ORDER BY name DESC;
+SELECT name,major FROM student ORDER BY name ASC;
+SELECT * FROM student ORDER BY major,student_id;
+SELECT * FROM student ORDER BY major,student_id DESC;
+
+SELECT * FROM student LIMIT 2;
+SELECT * FROM student ORDER BY student_id DESC LIMIT 2;
+SELECT * FROM student WHERE major='Biology';
+SELECT * FROM student WHERE major = 'Chemistry';
+SELECT name,major FROM student WHERE major='Chemistry';
+SELECT name,major FROM student WHERE major="Chemistry" OR major = 'Biology';
+SELECT name,major FROM student WHERE major ='Chemistry' OR name = 'Kate';
+
+SELECT name,major FROM student WHERE major <> 'Chemistry';
+SELECT name,major FROM student WHERE student_id < 3;
+SELECT * FROM student WHERE student_id < 3;
+SELECT * FROM student WHERE student_id <= 3 AND name <> 'Jack';
+SELECT * FROM student WHERE name IN('Claire','Kate','Mike');
+SELECT * FROM student WHERE major IN('Biology','Chemistry');
+SELECT * FROM student WHERE major IN('Biology','Chemistry') AND student_id > 2;

@@ -1,0 +1,700 @@
+Microsoft Windows [Version 10.0.18362.657]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.01 sec)
+
+MariaDB [(none)]> select 10 + 20;
++---------+
+| 10 + 20 |
++---------+
+|      30 |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> select 10 * 20;
++---------+
+| 10 * 20 |
++---------+
+|     200 |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> select 10/5;
++--------+
+| 10/5   |
++--------+
+| 2.0000 |
++--------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> select 12 % 5;
++--------+
+| 12 % 5 |
++--------+
+|      2 |
++--------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [(none)]> use man;
+Database changed
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customers     |
+| persons       |
+| salary        |
+| tryers        |
++---------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.04 sec)
+
+MariaDB [man]> select * from customers where salary > 5000;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where salary = 2000;
++----+---------+-----+-----------+--------+
+| id | name    | age | address   | salary |
++----+---------+-----+-----------+--------+
+|  1 | ramesh  |  32 | ahmedabad |   2000 |
+|  3 | kaushik |  23 | kota      |   2000 |
++----+---------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where salary != 2000;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  6 | komal    |  22 | mp      |   4500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customer where salary <> 2000;
+ERROR 1146 (42S02): Table 'man.customer' doesn't exist
+MariaDB [man]> select * from customers where salary <> 2000;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  6 | komal    |  22 | mp      |   4500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where salary >= 6500;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age >=25 and salary >=6500;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
++----+----------+-----+---------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age >= 25 or salary >=6500;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age is not null;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where name like 'ko%';
++----+-------+-----+---------+--------+
+| id | name  | age | address | salary |
++----+-------+-----+---------+--------+
+|  6 | komal |  22 | mp      |   4500 |
++----+-------+-----+---------+--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age in (25,27);
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
++----+----------+-----+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age between 25 and 27;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
++----+----------+-----+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where exists(select age from customers where salary > 6500);
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where exists( select age from customers where salary > 200000);
+Empty set (0.00 sec)
+
+MariaDB [man]> select * from customer where age > all ( select age from customers where salary > 6500);
+ERROR 1146 (42S02): Table 'man.customer' doesn't exist
+MariaDB [man]> select * from customers where age > all ( select age from customers where salary > 6500);
++----+--------+-----+-----------+--------+
+| id | name   | age | address   | salary |
++----+--------+-----+-----------+--------+
+|  1 | ramesh |  32 | ahmedabad |   2000 |
++----+--------+-----+-----------+--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age < all(select age from customer where salary > 6500);
+ERROR 1146 (42S02): Table 'man.customer' doesn't exist
+MariaDB [man]> select * from customers where age < all(select age from customers where salary > 6500);
++----+---------+-----+---------+--------+
+| id | name    | age | address | salary |
++----+---------+-----+---------+--------+
+|  3 | kaushik |  23 | kota    |   2000 |
+|  6 | komal   |  22 | mp      |   4500 |
++----+---------+-----+---------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age > any(select age from customers where salary > 6500);
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
++----+----------+-----+-----------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where salary = 10000;
++----+-------+-----+---------+--------+
+| id | name  | age | address | salary |
++----+-------+-----+---------+--------+
+|  7 | muffy |  24 | indore  |  10000 |
++----+-------+-----+---------+--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select (15+6) as addition;
++----------+
+| addition |
++----------+
+|       21 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select count(*) as "records" from customers;
++---------+
+| records |
++---------+
+|       7 |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select count(*) as "record" from customers where age > 25;
++--------+
+| record |
++--------+
+|      2 |
++--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select count(*) as "record" from customers where salary > 6500;
++--------+
+| record |
++--------+
+|      2 |
++--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select current_timestamp;
++---------------------+
+| current_timestamp   |
++---------------------+
+| 2020-08-05 09:57:22 |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select getdate();;
+ERROR 1305 (42000): FUNCTION man.getdate does not exist
+ERROR: No query specified
+
+MariaDB [man]> SELECT GETDATE();
+ERROR 1305 (42000): FUNCTION man.GETDATE does not exist
+MariaDB [man]> SELECT GETDATE();;
+ERROR 1305 (42000): FUNCTION man.GETDATE does not exist
+ERROR: No query specified
+
+MariaDB [man]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [man]> create database testDB;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [man]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
+| testdb             |
++--------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [man]> drop database testdb;
+Query OK, 0 rows affected (0.06 sec)
+
+MariaDB [man]> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [man]> show tables
+    -> ;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customers     |
+| persons       |
+| salary        |
+| tryers        |
++---------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> create table customer(id int not null, name varchar(20) not null, age int not null, address char(25), salary decimal(18,2),primary key(id));
+Query OK, 0 rows affected (0.35 sec)
+
+MariaDB [man]> describe customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   |     | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.09 sec)
+
+MariaDB [man]> inset into customer values('1','sandip','25','chattra shikar pur','75000');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'inset into customer values('1','sandip','25','chattra shikar pur','75000')' at line 1
+MariaDB [man]> inset into customer(id,name,age,address,salary)  values('1','sandip','25','chattra shikar pur','75000');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'inset into customer(id,name,age,address,salary)  values('1','sandip','25','chatt' at line 1
+MariaDB [man]> inset into customer(id,name,age,address,salary),  values('1','sandip','25','chattra shikar pur','75000');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'inset into customer(id,name,age,address,salary),  values('1','sandip','25','chat' at line 1
+MariaDB [man]> insert into customer  values('1','sandip','25','chattra shikar pur','75000');
+Query OK, 1 row affected (0.14 sec)
+
+MariaDB [man]> select * from customer;
++----+--------+-----+--------------------+----------+
+| id | name   | age | address            | salary   |
++----+--------+-----+--------------------+----------+
+|  1 | sandip |  25 | chattra shikar pur | 75000.00 |
++----+--------+-----+--------------------+----------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customer      |
+| customers     |
+| persons       |
+| salary        |
+| tryers        |
++---------------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> drop table salary;
+Query OK, 0 rows affected (0.52 sec)
+
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customer      |
+| customers     |
+| persons       |
+| tryers        |
++---------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> create table salary as select id,salary from customers;
+Query OK, 7 rows affected (0.30 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customer      |
+| customers     |
+| persons       |
+| salary        |
+| tryers        |
++---------------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> select * from salary;
++----+--------+
+| id | salary |
++----+--------+
+|  1 |   2000 |
+|  2 |   1500 |
+|  3 |   2000 |
+|  4 |   6500 |
+|  5 |   8500 |
+|  6 |   4500 |
+|  7 |  10000 |
++----+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> update customers set address='pune' where id = 6;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | pune      |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> delete from customers where id = 7;
+Query OK, 1 row affected (0.15 sec)
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | pune      |   4500 |
++----+----------+-----+-----------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where salary like '200%';
++----+---------+-----+-----------+--------+
+| id | name    | age | address   | salary |
++----+---------+-----+-----------+--------+
+|  1 | ramesh  |  32 | ahmedabad |   2000 |
+|  3 | kaushik |  23 | kota      |   2000 |
++----+---------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select top 3 * from customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '3 * from customers' at line 1
+MariaDB [man]> select top 3* from customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '3* from customers' at line 1
+MariaDB [man]> select * from customers limit 3;
++----+---------+-----+-----------+--------+
+| id | name    | age | address   | salary |
++----+---------+-----+-----------+--------+
+|  1 | ramesh  |  32 | ahmedabad |   2000 |
+|  2 | khilan  |  25 | delhi     |   1500 |
+|  3 | kaushik |  23 | kota      |   2000 |
++----+---------+-----+-----------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where rownum <=3;
+ERROR 1054 (42S22): Unknown column 'rownum' in 'where clause'
+MariaDB [man]> SELECT * FROM CUSTOMERS WHERE ROWNUM <= 3;
+ERROR 1054 (42S22): Unknown column 'ROWNUM' in 'where clause'
+MariaDB [man]> select * from customers order by name,salary;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  6 | komal    |  22 | pune      |   4500 |
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
++----+----------+-----+-----------+--------+
+6 rows in set (0.06 sec)
+
+MariaDB [man]> select * from customers order by name desc;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  6 | komal    |  22 | pune      |   4500 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
++----+----------+-----+-----------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> select name, sum(salary) from customers group by name;
++----------+-------------+
+| name     | sum(salary) |
++----------+-------------+
+| chaitali |        6500 |
+| Hardik   |        8500 |
+| kaushik  |        2000 |
+| khilan   |        1500 |
+| komal    |        4500 |
+| ramesh   |        2000 |
++----------+-------------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> select salary from customers order by salary;
++--------+
+| salary |
++--------+
+|   1500 |
+|   2000 |
+|   2000 |
+|   4500 |
+|   6500 |
+|   8500 |
++--------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> select distinct salary from customers order by salary;
++--------+
+| salary |
++--------+
+|   1500 |
+|   2000 |
+|   4500 |
+|   6500 |
+|   8500 |
++--------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   |     | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.10 sec)
+
+MariaDB [man]> alter table customer modify salary decimal(18,2) not null;
+Query OK, 1 row affected (0.75 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   |     | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | NO   |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.09 sec)
+
+MariaDB [man]> alter table customer modify salary decimal(18,2) default 5000.00;
+Query OK, 0 rows affected (0.47 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   |     | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | 5000.00 |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.09 sec)
+
+MariaDB [man]> alter table customer alter column salary drop default;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   |     | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.07 sec)
+
+MariaDB [man]>

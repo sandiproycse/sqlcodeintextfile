@@ -1,0 +1,178 @@
+Microsoft Windows [Version 10.0.18362.657]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 11
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> mysql --help
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mysql --help' at line 1
+MariaDB [(none)]> quit;
+Bye
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 12
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> select user();
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> create database pets;
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| sadik              |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [(none)]> use pets;
+Database changed
+MariaDB [pets]> create table cats(id int unsigned not null auto_increment,name varchar(150) not null,owner varchar(150) not null,birth date not null,primary key(id));
+Query OK, 0 rows affected (0.60 sec)
+
+MariaDB [pets]> show tables;
++----------------+
+| Tables_in_pets |
++----------------+
+| cats           |
++----------------+
+1 row in set (0.00 sec)
+
+MariaDB [pets]> describe cats;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(150)     | NO   |     | NULL    |                |
+| owner | varchar(150)     | NO   |     | NULL    |                |
+| birth | date             | NO   |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+4 rows in set (0.02 sec)
+
+MariaDB [pets]> insert into cats(name,owner,birth) values('sandy','lennon','2015-01-03'),('cookie','casey','2013-11-13'),('charlie','river','2016-05-21');
+Query OK, 3 rows affected (0.10 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [pets]> select * from cats;
++----+---------+--------+------------+
+| id | name    | owner  | birth      |
++----+---------+--------+------------+
+|  1 | sandy   | lennon | 2015-01-03 |
+|  2 | cookie  | casey  | 2013-11-13 |
+|  3 | charlie | river  | 2016-05-21 |
++----+---------+--------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [pets]> select name from cats where owner = 'casey';
++--------+
+| name   |
++--------+
+| cookie |
++--------+
+1 row in set (0.00 sec)
+
+MariaDB [pets]> delete from cats where name = 'cookie';
+Query OK, 1 row affected (0.10 sec)
+
+MariaDB [pets]> select * from cats;
++----+---------+--------+------------+
+| id | name    | owner  | birth      |
++----+---------+--------+------------+
+|  1 | sandy   | lennon | 2015-01-03 |
+|  3 | charlie | river  | 2016-05-21 |
++----+---------+--------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [pets]> alter table cats add gender char(1) after name;
+Query OK, 0 rows affected (1.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pets]> describe cats;
++--------+------------------+------+-----+---------+----------------+
+| Field  | Type             | Null | Key | Default | Extra          |
++--------+------------------+------+-----+---------+----------------+
+| id     | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(150)     | NO   |     | NULL    |                |
+| gender | char(1)          | YES  |     | NULL    |                |
+| owner  | varchar(150)     | NO   |     | NULL    |                |
+| birth  | date             | NO   |     | NULL    |                |
++--------+------------------+------+-----+---------+----------------+
+5 rows in set (0.10 sec)
+
+MariaDB [pets]> select * from cats;
++----+---------+--------+--------+------------+
+| id | name    | gender | owner  | birth      |
++----+---------+--------+--------+------------+
+|  1 | sandy   | NULL   | lennon | 2015-01-03 |
+|  3 | charlie | NULL   | river  | 2016-05-21 |
++----+---------+--------+--------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [pets]> show create table cats\g
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                   |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| cats  | CREATE TABLE `cats` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `owner` varchar(150) NOT NULL,
+  `birth` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [pets]> alter table cats drop gender;
+Query OK, 0 rows affected (0.50 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pets]> describe cats;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(150)     | NO   |     | NULL    |                |
+| owner | varchar(150)     | NO   |     | NULL    |                |
+| birth | date             | NO   |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+4 rows in set (0.02 sec)
+
+MariaDB [pets]> select * from cats;
++----+---------+--------+------------+
+| id | name    | owner  | birth      |
++----+---------+--------+------------+
+|  1 | sandy   | lennon | 2015-01-03 |
+|  3 | charlie | river  | 2016-05-21 |
++----+---------+--------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [pets]>

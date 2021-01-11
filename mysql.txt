@@ -1,0 +1,34 @@
+To enter into database: 
+mysql -u root -p
+
+To see the version and current date:
+select version(), current_date;
+
+To disconnect mysql:
+quit;
+
+To show database:
+show databases;
+
+To create a database:
+create database database_name;
+
+To use a database:
+use database_name; Example: use student;
+
+To create table:
+create table cats(id int unsigned not null auto_increment,name varchar(150) not null,owner varchar(150) not null,birth date not null,primary key(id));
+
+To insert data in a table:
+insert into cats(name,owner,birth) values('sandy','lennon','2015-01-03'),('cookie','casey','2013-11-13'),('charlie','river','2016-05-21');
+
+To show tables inside a database:
+show tables;
+
+To see structure of a table:
+describe table_name;
+
+To see data inside a table:
+select * from table_name;
+
+

@@ -1,0 +1,318 @@
+Microsoft Windows [Version 10.0.18362.657]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
+| tutorialspoint     |
++--------------------+
+9 rows in set (0.01 sec)
+
+MariaDB [(none)]> use tutorialspoint;
+Database changed
+MariaDB [tutorialspoint]> show tables;
++--------------------------+
+| Tables_in_tutorialspoint |
++--------------------------+
+| customers                |
++--------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [tutorialspoint]> drop customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'customers' at line 1
+MariaDB [tutorialspoint]> delete customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [tutorialspoint]> drop table customers;
+Query OK, 0 rows affected (0.33 sec)
+
+MariaDB [tutorialspoint]> show tables;
+Empty set (0.00 sec)
+
+MariaDB [tutorialspoint]> create table customers(id int unsigned not null auto_increment,name varchar(100),age int(3),address varchar(255),salary double);
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+MariaDB [tutorialspoint]> create table customers(id int unsigned not null auto_increment,name varchar(100),age int(3),address varchar(255),salary double,primary key(id));
+Query OK, 0 rows affected (0.30 sec)
+
+MariaDB [tutorialspoint]> show tables;
++--------------------------+
+| Tables_in_tutorialspoint |
++--------------------------+
+| customers                |
++--------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [tutorialspoint]> describe customers;
++---------+------------------+------+-----+---------+----------------+
+| Field   | Type             | Null | Key | Default | Extra          |
++---------+------------------+------+-----+---------+----------------+
+| id      | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(100)     | YES  |     | NULL    |                |
+| age     | int(3)           | YES  |     | NULL    |                |
+| address | varchar(255)     | YES  |     | NULL    |                |
+| salary  | double           | YES  |     | NULL    |                |
++---------+------------------+------+-----+---------+----------------+
+5 rows in set (0.41 sec)
+
+MariaDB [tutorialspoint]> insert into customers(name,age,address,salary) values('ramesh','32','ahmedabad',2000.00);
+Query OK, 1 row affected (0.08 sec)
+
+MariaDB [tutorialspoint]> select * from customers;
++----+--------+------+-----------+--------+
+| id | name   | age  | address   | salary |
++----+--------+------+-----------+--------+
+|  1 | ramesh |   32 | ahmedabad |   2000 |
++----+--------+------+-----------+--------+
+1 row in set (0.00 sec)
+
+MariaDB [tutorialspoint]> insert into customers(name,age,address,salary) values('khilan',25,'delhi',1500.00),('kaushik',23,'kota',2000.00),('chaitali',25,'mumbai',6500.00),('hardik',27,'bhopal',8500.00),('komal',22,'mp',4500.00),('muffy',24,'indore',10000.00);
+Query OK, 6 rows affected (0.44 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [tutorialspoint]> select * from customers;
++----+----------+------+-----------+--------+
+| id | name     | age  | address   | salary |
++----+----------+------+-----------+--------+
+|  1 | ramesh   |   32 | ahmedabad |   2000 |
+|  2 | khilan   |   25 | delhi     |   1500 |
+|  3 | kaushik  |   23 | kota      |   2000 |
+|  4 | chaitali |   25 | mumbai    |   6500 |
+|  5 | hardik   |   27 | bhopal    |   8500 |
+|  6 | komal    |   22 | mp        |   4500 |
+|  7 | muffy    |   24 | indore    |  10000 |
++----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers where salary > 5000;
++----+----------+------+---------+--------+
+| id | name     | age  | address | salary |
++----+----------+------+---------+--------+
+|  4 | chaitali |   25 | mumbai  |   6500 |
+|  5 | hardik   |   27 | bhopal  |   8500 |
+|  7 | muffy    |   24 | indore  |  10000 |
++----+----------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select count(age) from customers where salary > 5000;
++------------+
+| count(age) |
++------------+
+|          3 |
++------------+
+1 row in set (0.01 sec)
+
+MariaDB [tutorialspoint]> select count(name) from customers;
++-------------+
+| count(name) |
++-------------+
+|           7 |
++-------------+
+1 row in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select sum(salary) from customers;
++-------------+
+| sum(salary) |
++-------------+
+|       35000 |
++-------------+
+1 row in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select sum(salary) from customers where salary > 5000 group by age;
++-------------+
+| sum(salary) |
++-------------+
+|       10000 |
+|        6500 |
+|        8500 |
++-------------+
+3 rows in set (0.07 sec)
+
+MariaDB [tutorialspoint]> select * from customers;
++----+----------+------+-----------+--------+
+| id | name     | age  | address   | salary |
++----+----------+------+-----------+--------+
+|  1 | ramesh   |   32 | ahmedabad |   2000 |
+|  2 | khilan   |   25 | delhi     |   1500 |
+|  3 | kaushik  |   23 | kota      |   2000 |
+|  4 | chaitali |   25 | mumbai    |   6500 |
+|  5 | hardik   |   27 | bhopal    |   8500 |
+|  6 | komal    |   22 | mp        |   4500 |
+|  7 | muffy    |   24 | indore    |  10000 |
++----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select sum(salary) from customers group by age;
++-------------+
+| sum(salary) |
++-------------+
+|        4500 |
+|        2000 |
+|       10000 |
+|        8000 |
+|        8500 |
+|        2000 |
++-------------+
+6 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select id,name,age from customers order by name asc;
++----+----------+------+
+| id | name     | age  |
++----+----------+------+
+|  4 | chaitali |   25 |
+|  5 | hardik   |   27 |
+|  3 | kaushik  |   23 |
+|  2 | khilan   |   25 |
+|  6 | komal    |   22 |
+|  7 | muffy    |   24 |
+|  1 | ramesh   |   32 |
++----+----------+------+
+7 rows in set (0.06 sec)
+
+MariaDB [tutorialspoint]> select id,name,age from customers order by salary desc;
++----+----------+------+
+| id | name     | age  |
++----+----------+------+
+|  7 | muffy    |   24 |
+|  5 | hardik   |   27 |
+|  4 | chaitali |   25 |
+|  6 | komal    |   22 |
+|  1 | ramesh   |   32 |
+|  3 | kaushik  |   23 |
+|  2 | khilan   |   25 |
++----+----------+------+
+7 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select id,name,age from customers where age(25,27,32);
+ERROR 1305 (42000): FUNCTION tutorialspoint.age does not exist
+MariaDB [tutorialspoint]> select id,name,age from customers where age in (25,27,32);
++----+----------+------+
+| id | name     | age  |
++----+----------+------+
+|  1 | ramesh   |   32 |
+|  2 | khilan   |   25 |
+|  4 | chaitali |   25 |
+|  5 | hardik   |   27 |
++----+----------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers;
++----+----------+------+-----------+--------+
+| id | name     | age  | address   | salary |
++----+----------+------+-----------+--------+
+|  1 | ramesh   |   32 | ahmedabad |   2000 |
+|  2 | khilan   |   25 | delhi     |   1500 |
+|  3 | kaushik  |   23 | kota      |   2000 |
+|  4 | chaitali |   25 | mumbai    |   6500 |
+|  5 | hardik   |   27 | bhopal    |   8500 |
+|  6 | komal    |   22 | mp        |   4500 |
+|  7 | muffy    |   24 | indore    |  10000 |
++----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers where salary = 2000;
++----+---------+------+-----------+--------+
+| id | name    | age  | address   | salary |
++----+---------+------+-----------+--------+
+|  1 | ramesh  |   32 | ahmedabad |   2000 |
+|  3 | kaushik |   23 | kota      |   2000 |
++----+---------+------+-----------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers where salary != 2000;
++----+----------+------+---------+--------+
+| id | name     | age  | address | salary |
++----+----------+------+---------+--------+
+|  2 | khilan   |   25 | delhi   |   1500 |
+|  4 | chaitali |   25 | mumbai  |   6500 |
+|  5 | hardik   |   27 | bhopal  |   8500 |
+|  6 | komal    |   22 | mp      |   4500 |
+|  7 | muffy    |   24 | indore  |  10000 |
++----+----------+------+---------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers where salary <> 2000;
++----+----------+------+---------+--------+
+| id | name     | age  | address | salary |
++----+----------+------+---------+--------+
+|  2 | khilan   |   25 | delhi   |   1500 |
+|  4 | chaitali |   25 | mumbai  |   6500 |
+|  5 | hardik   |   27 | bhopal  |   8500 |
+|  6 | komal    |   22 | mp      |   4500 |
+|  7 | muffy    |   24 | indore  |  10000 |
++----+----------+------+---------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers where salary >= 6500;
++----+----------+------+---------+--------+
+| id | name     | age  | address | salary |
++----+----------+------+---------+--------+
+|  4 | chaitali |   25 | mumbai  |   6500 |
+|  5 | hardik   |   27 | bhopal  |   8500 |
+|  7 | muffy    |   24 | indore  |  10000 |
++----+----------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers where age >= 25 and salary >= 6500;
++----+----------+------+---------+--------+
+| id | name     | age  | address | salary |
++----+----------+------+---------+--------+
+|  4 | chaitali |   25 | mumbai  |   6500 |
+|  5 | hardik   |   27 | bhopal  |   8500 |
++----+----------+------+---------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers where age >= 25 or salary >= 6500;
++----+----------+------+-----------+--------+
+| id | name     | age  | address   | salary |
++----+----------+------+-----------+--------+
+|  1 | ramesh   |   32 | ahmedabad |   2000 |
+|  2 | khilan   |   25 | delhi     |   1500 |
+|  4 | chaitali |   25 | mumbai    |   6500 |
+|  5 | hardik   |   27 | bhopal    |   8500 |
+|  7 | muffy    |   24 | indore    |  10000 |
++----+----------+------+-----------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> select * from customers where age is not null;
++----+----------+------+-----------+--------+
+| id | name     | age  | address   | salary |
++----+----------+------+-----------+--------+
+|  1 | ramesh   |   32 | ahmedabad |   2000 |
+|  2 | khilan   |   25 | delhi     |   1500 |
+|  3 | kaushik  |   23 | kota      |   2000 |
+|  4 | chaitali |   25 | mumbai    |   6500 |
+|  5 | hardik   |   27 | bhopal    |   8500 |
+|  6 | komal    |   22 | mp        |   4500 |
+|  7 | muffy    |   24 | indore    |  10000 |
++----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [tutorialspoint]> insert into customers(name,age,address,salary) values('sandip,null,'dhaka',2500.00);
+    '> ;
+    '>
+    '> cls;
+    '> exit;
+    '> close;
+    '> cls;
+    '> end;
+    '> exit;
+    '> quit;
+    '>

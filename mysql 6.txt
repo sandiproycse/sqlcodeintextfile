@@ -1,0 +1,713 @@
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 16
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| sadik              |
+| student            |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [(none)]> use man
+Database changed
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| persons       |
++---------------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select 10 + 20
+    -> ;
++---------+
+| 10 + 20 |
++---------+
+|      30 |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select 10 * 20;
++---------+
+| 10 * 20 |
++---------+
+|     200 |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select 10/5;
++--------+
+| 10/5   |
++--------+
+| 2.0000 |
++--------+
+1 row in set (0.05 sec)
+
+MariaDB [man]> select 12 % 5;
++--------+
+| 12 % 5 |
++--------+
+|      2 |
++--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> create table customers(id int unsigned not null auto_increment primary,name varchar(150) not null,age int(3) not null, address varchar(150) not null, salary int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'name varchar(150) not null,age int(3) not null, address varchar(150) not null, s' at line 1
+MariaDB [man]> create table customers(id int unsigned not null auto_increment primary key,name varchar(150) not null,age int(3) not null, address varchar(150) not null, salary int not null);
+Query OK, 0 rows affected (0.33 sec)
+
+MariaDB [man]> describe table customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table customers' at line 1
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| customers     |
+| persons       |
++---------------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> describe table customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table customers' at line 1
+MariaDB [man]> select * from customers;
+Empty set (0.00 sec)
+
+MariaDB [man]> describe customers;
++---------+------------------+------+-----+---------+----------------+
+| Field   | Type             | Null | Key | Default | Extra          |
++---------+------------------+------+-----+---------+----------------+
+| id      | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(150)     | NO   |     | NULL    |                |
+| age     | int(3)           | NO   |     | NULL    |                |
+| address | varchar(150)     | NO   |     | NULL    |                |
+| salary  | int(11)          | NO   |     | NULL    |                |
++---------+------------------+------+-----+---------+----------------+
+5 rows in set (0.10 sec)
+
+MariaDB [man]> create table buyers(id int unsigned not null auto_increment primary key,name varchar(150) not null,age int(3) not null, address varchar(150) not null, salary int not null);
+Query OK, 0 rows affected (0.30 sec)
+
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customers     |
+| persons       |
++---------------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> describe buyers;
++---------+------------------+------+-----+---------+----------------+
+| Field   | Type             | Null | Key | Default | Extra          |
++---------+------------------+------+-----+---------+----------------+
+| id      | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(150)     | NO   |     | NULL    |                |
+| age     | int(3)           | NO   |     | NULL    |                |
+| address | varchar(150)     | NO   |     | NULL    |                |
+| salary  | int(11)          | NO   |     | NULL    |                |
++---------+------------------+------+-----+---------+----------------+
+5 rows in set (0.09 sec)
+
+MariaDB [man]> insert into customers values('ramesh','32','ahmedabad','2000.00');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [man]> insert into customers values('1','ramesh','32','ahmedabad','2000.00');
+Query OK, 1 row affected (0.40 sec)
+
+MariaDB [man]> select * from customers;
++----+--------+-----+-----------+--------+
+| id | name   | age | address   | salary |
++----+--------+-----+-----------+--------+
+|  1 | ramesh |  32 | ahmedabad |   2000 |
++----+--------+-----+-----------+--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> insert into customers values('khilan','25','delhi','1500'),('kaushik','23','kota','2000'),('chaitali','
+    '> 25','mumbai','6500');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [man]> insert into customers values('2','khilan','25','delhi','1500'),('3','kaushik','23','kota','2000'),('4','chaitali','25'
+    -> ,'mumbai','6500');
+Query OK, 3 rows affected (0.07 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
++----+----------+-----+-----------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> insert into customers(name,age,address,salary) values('Hardik','27','bhopal','8500'),('komal','22','mp','4500'),('muffy','24','indore','10000');
+Query OK, 3 rows affected (0.07 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers whre salary > 5000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'salary > 5000' at line 1
+MariaDB [man]> select * from customers where salary > 5000;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+3 rows in set (0.05 sec)
+
+MariaDB [man]> select * from customers where salary = 2000;
++----+---------+-----+-----------+--------+
+| id | name    | age | address   | salary |
++----+---------+-----+-----------+--------+
+|  1 | ramesh  |  32 | ahmedabad |   2000 |
+|  3 | kaushik |  23 | kota      |   2000 |
++----+---------+-----+-----------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where salary != 2000;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  6 | komal    |  22 | mp      |   4500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where salary <> 2000;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  6 | komal    |  22 | mp      |   4500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where salary >= 6500;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age >=25 and salary >=6500;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
++----+----------+-----+---------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age >= 25 or salary >=65;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age is not null;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customer where name like 'ko%';
+ERROR 1146 (42S02): Table 'man.customer' doesn't exist
+MariaDB [man]> select * from customers where name like 'ko%';
++----+-------+-----+---------+--------+
+| id | name  | age | address | salary |
++----+-------+-----+---------+--------+
+|  6 | komal |  22 | mp      |   4500 |
++----+-------+-----+---------+--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age in (25,27);
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
++----+----------+-----+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age in (27);
++----+--------+-----+---------+--------+
+| id | name   | age | address | salary |
++----+--------+-----+---------+--------+
+|  5 | Hardik |  27 | bhopal  |   8500 |
++----+--------+-----+---------+--------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age between 25 and 27;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
++----+----------+-----+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age between 20 and 30;
++----+----------+-----+---------+--------+
+| id | name     | age | address | salary |
++----+----------+-----+---------+--------+
+|  2 | khilan   |  25 | delhi   |   1500 |
+|  3 | kaushik  |  23 | kota    |   2000 |
+|  4 | chaitali |  25 | mumbai  |   6500 |
+|  5 | Hardik   |  27 | bhopal  |   8500 |
+|  6 | komal    |  22 | mp      |   4500 |
+|  7 | muffy    |  24 | indore  |  10000 |
++----+----------+-----+---------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> select age from customers where exists(select age from customers where salary > 6500);
++-----+
+| age |
++-----+
+|  32 |
+|  25 |
+|  23 |
+|  25 |
+|  27 |
+|  22 |
+|  24 |
++-----+
+7 rows in set (0.05 sec)
+
+MariaDB [man]> select age,name from customers where exists(select age from customers where salary > 6500);
++-----+----------+
+| age | name     |
++-----+----------+
+|  32 | ramesh   |
+|  25 | khilan   |
+|  23 | kaushik  |
+|  25 | chaitali |
+|  27 | Hardik   |
+|  22 | komal    |
+|  24 | muffy    |
++-----+----------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select age,name from customers where exists(select age from customers where salary < 6500);
++-----+----------+
+| age | name     |
++-----+----------+
+|  32 | ramesh   |
+|  25 | khilan   |
+|  23 | kaushik  |
+|  25 | chaitali |
+|  27 | Hardik   |
+|  22 | komal    |
+|  24 | muffy    |
++-----+----------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where exists(select name from customers where age < 25);
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age > all(select age from customers where salary > 6500);
++----+--------+-----+-----------+--------+
+| id | name   | age | address   | salary |
++----+--------+-----+-----------+--------+
+|  1 | ramesh |  32 | ahmedabad |   2000 |
++----+--------+-----+-----------+--------+
+1 row in set (0.35 sec)
+
+MariaDB [man]> select * from customers where age > any(select age fro mcustomer where salary > 6500);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mcustomer where salary > 6500)' at line 1
+MariaDB [man]> select * from customers where age > any(select age from customer where salary > 6500);
+ERROR 1146 (42S02): Table 'man.customer' doesn't exist
+MariaDB [man]> select * from customers where age > any(select age from customers where salary > 6500);
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
++----+----------+-----+-----------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers where age > any(select age from customers where salary > 6500);
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
++----+----------+-----+-----------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> select count(*) as 'records' from customers;
++---------+
+| records |
++---------+
+|       7 |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select count(name) as 'records' from customer where salary > 6500;
+ERROR 1146 (42S02): Table 'man.customer' doesn't exist
+MariaDB [man]> select count(name) as 'records' from customers where salary > 6500;
++---------+
+| records |
++---------+
+|       2 |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select count(age) as 'ages' from customers where age < 25;
++------+
+| ages |
++------+
+|    3 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select current_timestamp;
++---------------------+
+| current_timestamp   |
++---------------------+
+| 2020-07-31 15:59:46 |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select getdate();
+ERROR 1305 (42000): FUNCTION man.getdate does not exist
+MariaDB [man]> select getdate();;
+ERROR 1305 (42000): FUNCTION man.getdate does not exist
+ERROR: No query specified
+
+MariaDB [man]> select getdate();;
+ERROR 1305 (42000): FUNCTION man.getdate does not exist
+ERROR: No query specified
+
+MariaDB [man]> select getdate();
+ERROR 1305 (42000): FUNCTION man.getdate does not exist
+MariaDB [man]> select getdate();
+ERROR 1305 (42000): FUNCTION man.getdate does not exist
+MariaDB [man]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| sadik              |
+| student            |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [man]> drop database sadik;
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [man]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> desc customers;
++---------+------------------+------+-----+---------+----------------+
+| Field   | Type             | Null | Key | Default | Extra          |
++---------+------------------+------+-----+---------+----------------+
+| id      | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(150)     | NO   |     | NULL    |                |
+| age     | int(3)           | NO   |     | NULL    |                |
+| address | varchar(150)     | NO   |     | NULL    |                |
+| salary  | int(11)          | NO   |     | NULL    |                |
++---------+------------------+------+-----+---------+----------------+
+5 rows in set (0.10 sec)
+
+MariaDB [man]> create table salary as select id,salary from customers;
+Query OK, 7 rows affected (0.36 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc salary;
++--------+------------------+------+-----+---------+-------+
+| Field  | Type             | Null | Key | Default | Extra |
++--------+------------------+------+-----+---------+-------+
+| id     | int(10) unsigned | NO   |     | 0       |       |
+| salary | int(11)          | NO   |     | NULL    |       |
++--------+------------------+------+-----+---------+-------+
+2 rows in set (0.09 sec)
+
+MariaDB [man]> select * from salary;
++----+--------+
+| id | salary |
++----+--------+
+|  1 |   2000 |
+|  2 |   1500 |
+|  3 |   2000 |
+|  4 |   6500 |
+|  5 |   8500 |
+|  6 |   4500 |
+|  7 |  10000 |
++----+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> show tables
+    -> ;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customers     |
+| persons       |
+| salary        |
++---------------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> drop table buyers;
+Query OK, 0 rows affected (0.30 sec)
+
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| customers     |
+| persons       |
+| salary        |
++---------------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> create table buyers(id int unsigned not null auto_increment primary key,name varchar(150) not null,age int(3) not null, address varchar(150) not null, salary int not null);
+Query OK, 0 rows affected (0.34 sec)
+
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customers     |
+| persons       |
+| salary        |
++---------------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> insert into buyers(id,name,age,address,salary) select id,name,age,address,salary from customers;
+Query OK, 7 rows affected (0.39 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from buyers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> create table tryers(id int unsigned not null auto_increment primary key,name varchar(150),age int(3), address varchar(150), salary int);
+Query OK, 0 rows affected (0.27 sec)
+
+MariaDB [man]> desc tryers;
++---------+------------------+------+-----+---------+----------------+
+| Field   | Type             | Null | Key | Default | Extra          |
++---------+------------------+------+-----+---------+----------------+
+| id      | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(150)     | YES  |     | NULL    |                |
+| age     | int(3)           | YES  |     | NULL    |                |
+| address | varchar(150)     | YES  |     | NULL    |                |
+| salary  | int(11)          | YES  |     | NULL    |                |
++---------+------------------+------+-----+---------+----------------+
+5 rows in set (0.34 sec)
+
+MariaDB [man]> insert into tryers(name,address) select name,address form salary where salary > 6500;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'salary where salary > 6500' at line 1
+MariaDB [man]> insert into tryers(name,address) select name,address from buyers where salary>6500;
+Query OK, 2 rows affected (0.10 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from trypers;
+ERROR 1146 (42S02): Table 'man.trypers' doesn't exist
+MariaDB [man]> select * from tryers;
++----+--------+------+---------+--------+
+| id | name   | age  | address | salary |
++----+--------+------+---------+--------+
+|  1 | Hardik | NULL | bhopal  |   NULL |
+|  2 | muffy  | NULL | indore  |   NULL |
++----+--------+------+---------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select * from buyers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  32 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | mp        |   4500 |
+|  7 | muffy    |  24 | indore    |  10000 |
++----+----------+-----+-----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> insert into tryers(age,salary) select age,salary from buyers where age > 30;
+Query OK, 1 row affected (0.08 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from tryers;
++----+--------+------+---------+--------+
+| id | name   | age  | address | salary |
++----+--------+------+---------+--------+
+|  1 | Hardik | NULL | bhopal  |   NULL |
+|  2 | muffy  | NULL | indore  |   NULL |
+|  4 | NULL   |   32 | NULL    |   2000 |
++----+--------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select id,name,salary from customers;
++----+----------+--------+
+| id | name     | salary |
++----+----------+--------+
+|  1 | ramesh   |   2000 |
+|  2 | khilan   |   1500 |
+|  3 | kaushik  |   2000 |
+|  4 | chaitali |   6500 |
+|  5 | Hardik   |   8500 |
+|  6 | komal    |   4500 |
+|  7 | muffy    |  10000 |
++----+----------+--------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> select id,name,salary from customers where salary > 2000;
++----+----------+--------+
+| id | name     | salary |
++----+----------+--------+
+|  4 | chaitali |   6500 |
+|  5 | Hardik   |   8500 |
+|  6 | komal    |   4500 |
+|  7 | muffy    |  10000 |
++----+----------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> select id,name,age from customer where name='hardik';
+ERROR 1146 (42S02): Table 'man.customer' doesn't exist
+MariaDB [man]> select id,name,age from customers where name='hardik';
++----+--------+-----+
+| id | name   | age |
++----+--------+-----+
+|  5 | Hardik |  27 |
++----+--------+-----+
+1 row in set (0.00 sec)
+
+MariaDB [man]>

@@ -1,0 +1,346 @@
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [(none)]> use man;
+Database changed
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customer      |
+| customers     |
+| persons       |
+| salary        |
+| tryers        |
++---------------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   |     | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.10 sec)
+
+MariaDB [man]> alter table customer modify age int not null unique;
+Query OK, 0 rows affected (0.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   | UNI | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+MariaDB [man]> alter table customer add constraint myUniqueConstraint unique(age,salary);
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   | UNI | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.09 sec)
+
+MariaDB [man]> alter table customer add primary key (name);
+ERROR 1068 (42000): Multiple primary key defined
+MariaDB [man]> alter table customer add constraint pk_custid primary key(id,name);
+ERROR 1068 (42000): Multiple primary key defined
+MariaDB [man]> alter table customer drop primary key;
+Query OK, 1 row affected (0.70 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   |     | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   | PRI | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.10 sec)
+
+MariaDB [man]> alter table customer drop primary key;
+ERROR 1091 (42000): Can't DROP 'PRIMARY'; check that column/key exists
+MariaDB [man]> alter table customer add primary key (id);
+Query OK, 0 rows affected (0.84 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   | UNI | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.13 sec)
+
+MariaDB [man]> alter table customer drop primary key;
+Query OK, 1 row affected (0.69 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   |     | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   | PRI | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.07 sec)
+
+MariaDB [man]> alter table customer add constraint pk_custid primary key(id,name);
+Query OK, 0 rows affected (0.48 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   | PRI | NULL    |       |
+| age     | int(11)       | NO   | UNI | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.09 sec)
+
+MariaDB [man]> alter table customer drop primary key;
+Query OK, 1 row affected (0.68 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> alter table customer add primary key(id);
+Query OK, 0 rows affected (0.47 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> desc customer;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| id      | int(11)       | NO   | PRI | NULL    |       |
+| name    | varchar(20)   | NO   |     | NULL    |       |
+| age     | int(11)       | NO   | UNI | NULL    |       |
+| address | char(25)      | YES  |     | NULL    |       |
+| salary  | decimal(18,2) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set (0.05 sec)
+
+MariaDB [man]> create table orders(id int not null,date datetime,customer_id int references customer(id),amount double,primary key(id));
+Query OK, 0 rows affected (0.32 sec)
+
+MariaDB [man]> desc orders;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| id          | int(11)  | NO   | PRI | NULL    |       |
+| date        | datetime | YES  |     | NULL    |       |
+| customer_id | int(11)  | YES  |     | NULL    |       |
+| amount      | double   | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.09 sec)
+
+MariaDB [man]> alter table orders add foreign key(customer_id) references customer(id);
+Query OK, 0 rows affected (0.82 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from customer;
++----+--------+-----+--------------------+----------+
+| id | name   | age | address            | salary   |
++----+--------+-----+--------------------+----------+
+|  1 | sandip |  25 | chattra shikar pur | 75000.00 |
++----+--------+-----+--------------------+----------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> insert into customer values('2','ramesh','32','ahmedabad','2000'),('khilan','25','delhi','1500'),('kaushik','23','kota','2000'),('chaitali','25','mumbai','6500'),('hardik','27','bhopal','8500'),('komal','22','mp','4500'),('muffy','24','indore','10000');
+ERROR 1136 (21S01): Column count doesn't match value count at row 2
+MariaDB [man]> insert into customer values('2','ramesh','32','ahmedabad','2000'),('3','khilan','25','delhi','1500'),('4','kaushik','23','kota','2000'),('5','chaitali','25','mumbai','6500'),('6','hardik','27','bhopal','8500'),('7','komal','22','mp','4500'),('8','muffy','24','indore','10000');
+ERROR 1062 (23000): Duplicate entry '25' for key 'age'
+MariaDB [man]> insert into customer values('2','ramesh','32','ahmedabad','2000'),('3','khilan','21','delhi','1500'),('4','kaushik','23','kota','2000'),('5','chaitali','25','mumbai','6500'),('6','hardik','27','bhopal','8500'),('7','komal','22','mp','4500'),('8','muffy','24','indore','10000');
+ERROR 1062 (23000): Duplicate entry '25' for key 'age'
+MariaDB [man]> insert into customer values('2','ramesh','32','ahmedabad','2000'),('3','khilan','21','delhi','1500'),('4','kaushik','23','kota','2000'),('5','chaitali','29','mumbai','6500'),('6','hardik','27','bhopal','8500'),('7','komal','22','mp','4500'),('8','muffy','24','indore','10000');
+Query OK, 7 rows affected (0.11 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from customer;
++----+----------+-----+--------------------+----------+
+| id | name     | age | address            | salary   |
++----+----------+-----+--------------------+----------+
+|  1 | sandip   |  25 | chattra shikar pur | 75000.00 |
+|  2 | ramesh   |  32 | ahmedabad          |  2000.00 |
+|  3 | khilan   |  21 | delhi              |  1500.00 |
+|  4 | kaushik  |  23 | kota               |  2000.00 |
+|  5 | chaitali |  29 | mumbai             |  6500.00 |
+|  6 | hardik   |  27 | bhopal             |  8500.00 |
+|  7 | komal    |  22 | mp                 |  4500.00 |
+|  8 | muffy    |  24 | indore             | 10000.00 |
++----+----------+-----+--------------------+----------+
+8 rows in set (0.00 sec)
+
+MariaDB [man]> desc orders;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| id          | int(11)  | NO   | PRI | NULL    |       |
+| date        | datetime | YES  |     | NULL    |       |
+| customer_id | int(11)  | YES  | MUL | NULL    |       |
+| amount      | double   | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.10 sec)
+
+MariaDB [man]> select * from orders;
++-----+---------------------+-------------+--------+
+| id  | date                | customer_id | amount |
++-----+---------------------+-------------+--------+
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |
++-----+---------------------+-------------+--------+
+1 row in set (0.06 sec)
+
+MariaDB [man]> INSERT INTO `orders` (`id`, `date`, `customer_id`, `amount`) VALUES ('101', '2009-11-20', '2', '1560');
+Query OK, 1 row affected (0.10 sec)
+
+MariaDB [man]> select * from orders;
++-----+---------------------+-------------+--------+
+| id  | date                | customer_id | amount |
++-----+---------------------+-------------+--------+
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |
++-----+---------------------+-------------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from orders;
++-----+---------------------+-------------+--------+
+| id  | date                | customer_id | amount |
++-----+---------------------+-------------+--------+
+| 100 | 2009-10-08 00:00:00 |           3 |   1500 |
+| 101 | 2009-11-20 00:00:00 |           2 |   1560 |
+| 102 | 2009-10-08 00:00:00 |           3 |   3000 |
+| 103 | 2008-05-20 00:00:00 |           4 |   2060 |
++-----+---------------------+-------------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> select id,name,age,amount from customer,orders;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+MariaDB [man]> select id,name,age,amount from customer,orders where customer.id=orders.customer_id;
+ERROR 1052 (23000): Column 'id' in field list is ambiguous
+MariaDB [man]> select name,age,amount from customer,orders where customer.id=orders.customer_id;
++---------+-----+--------+
+| name    | age | amount |
++---------+-----+--------+
+| khilan  |  21 |   1500 |
+| ramesh  |  32 |   1560 |
+| khilan  |  21 |   3000 |
+| kaushik |  23 |   2060 |
++---------+-----+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> select name,amount,age,salary,date from customer inner join orders on customer.id = orders.customer_id;
++---------+--------+-----+---------+---------------------+
+| name    | amount | age | salary  | date                |
++---------+--------+-----+---------+---------------------+
+| khilan  |   1500 |  21 | 1500.00 | 2009-10-08 00:00:00 |
+| ramesh  |   1560 |  32 | 2000.00 | 2009-11-20 00:00:00 |
+| khilan  |   3000 |  21 | 1500.00 | 2009-10-08 00:00:00 |
+| kaushik |   2060 |  23 | 2000.00 | 2008-05-20 00:00:00 |
++---------+--------+-----+---------+---------------------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> select name,amount,date from customer left join orders on customer.id=orders.customer_id;
++----------+--------+---------------------+
+| name     | amount | date                |
++----------+--------+---------------------+
+| khilan   |   1500 | 2009-10-08 00:00:00 |
+| ramesh   |   1560 | 2009-11-20 00:00:00 |
+| khilan   |   3000 | 2009-10-08 00:00:00 |
+| kaushik  |   2060 | 2008-05-20 00:00:00 |
+| sandip   |   NULL | NULL                |
+| chaitali |   NULL | NULL                |
+| hardik   |   NULL | NULL                |
+| komal    |   NULL | NULL                |
+| muffy    |   NULL | NULL                |
++----------+--------+---------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [man]> select name,amount,date from customer full join orders on customer.id=orders.customer_id;
+ERROR 1054 (42S22): Unknown column 'customer.id' in 'on clause'
+MariaDB [man]> alter table orders drop id;
+Query OK, 4 rows affected (0.97 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from orders;
++---------------------+-------------+--------+
+| date                | customer_id | amount |
++---------------------+-------------+--------+
+| 2009-10-08 00:00:00 |           3 |   1500 |
+| 2009-11-20 00:00:00 |           2 |   1560 |
+| 2009-10-08 00:00:00 |           3 |   3000 |
+| 2008-05-20 00:00:00 |           4 |   2060 |
++---------------------+-------------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]> alter table orders add oid int unsigned not null primary key;
+ERROR 1062 (23000): Duplicate entry '0' for key 'PRIMARY'
+MariaDB [man]> alter table orders add oid int unsigned not null auto;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'auto' at line 1
+MariaDB [man]> alter table orders add oid int auto not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'auto not null' at line 1
+MariaDB [man]> select * from orders;
++-----+---------------------+-------------+--------+
+| oid | date                | customer_id | amount |
++-----+---------------------+-------------+--------+
+|   1 | 2009-10-08 00:00:00 |           3 |   1500 |
+|   2 | 2009-11-20 00:00:00 |           2 |   1560 |
+|   3 | 2009-10-08 00:00:00 |           3 |   3000 |
+|   4 | 2008-05-20 00:00:00 |           4 |   2060 |
++-----+---------------------+-------------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [man]>

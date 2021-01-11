@@ -1,0 +1,333 @@
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 14
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| sadik              |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [(none)]> create database man;
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [(none)]> use man;
+Database changed
+MariaDB [man]> create table persons(p_id int unsigned not null auto_increment,lastname varchar(50) not null,firstname varchar(50) not null,address varchar(150) not null,city varchar(50) not null);
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+MariaDB [man]> create table persons(p_id int unsigned not null auto_increment,lastname varchar(50) not null,firstname varchar(50) not null,address varchar(150) not null,city varchar(50) not null,primary key(id));
+ERROR 1072 (42000): Key column 'id' doesn't exist in table
+MariaDB [man]> create table persons(p_id int unsigned not null auto_increment,lastname varchar(50) not null,firstname varchar(50) not null,address varchar(150) not null,city varchar(50) not null,primary key(p_id));
+Query OK, 0 rows affected (0.29 sec)
+
+MariaDB [man]> describe persons;
++-----------+------------------+------+-----+---------+----------------+
+| Field     | Type             | Null | Key | Default | Extra          |
++-----------+------------------+------+-----+---------+----------------+
+| p_id      | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| lastname  | varchar(50)      | NO   |     | NULL    |                |
+| firstname | varchar(50)      | NO   |     | NULL    |                |
+| address   | varchar(150)     | NO   |     | NULL    |                |
+| city      | varchar(50)      | NO   |     | NULL    |                |
++-----------+------------------+------+-----+---------+----------------+
+5 rows in set (0.07 sec)
+
+MariaDB [man]> insert into persons(lastname,firstname,address,city) values('roy','sandip','chattra shikar pur','panchagarh'),('roy','bornaly','chirirbondor','dinajpur'),('roy','putul','ranigonj','dinajpur');
+Query OK, 3 rows affected (0.08 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
++------+----------+-----------+--------------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select distinct city from persons;
++------------+
+| city       |
++------------+
+| panchagarh |
+| dinajpur   |
++------------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select distinct lastname from persons;
++----------+
+| lastname |
++----------+
+| roy      |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select lastname,firstname from persons;
++----------+-----------+
+| lastname | firstname |
++----------+-----------+
+| roy      | sandip    |
+| roy      | bornaly   |
+| roy      | putul     |
++----------+-----------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from persons where city='dinajpur';
++------+----------+-----------+--------------+----------+
+| p_id | lastname | firstname | address      | city     |
++------+----------+-----------+--------------+----------+
+|    2 | roy      | bornaly   | chirirbondor | dinajpur |
+|    3 | roy      | putul     | ranigonj     | dinajpur |
++------+----------+-----------+--------------+----------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> insert into persons(lastname,firstname,address,city) values('barman','bikash','debigonj','panchagarh');
+Query OK, 1 row affected (0.07 sec)
+
+MariaDB [man]> insert into persons(lastname,firstname,address,city) values('barman','badhon','debigonj','panchagarh');
+Query OK, 1 row affected (0.42 sec)
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
++------+----------+-----------+--------------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from person where city='panchagarh';
+ERROR 1146 (42S02): Table 'man.person' doesn't exist
+MariaDB [man]> select * from persons where city='panchagarh';
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
++------+----------+-----------+--------------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [man]> select * from persons where firstname='sandip' and lastname='roy';
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
++------+----------+-----------+--------------------+------------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select * from persons where firstname='sandip' or firstname='bornaly';
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
++------+----------+-----------+--------------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [man]> select * from persons where lastname='barman' and (firstname='sandip' or firstname='bikash');
++------+----------+-----------+----------+------------+
+| p_id | lastname | firstname | address  | city       |
++------+----------+-----------+----------+------------+
+|    4 | barman   | bikash    | debigonj | panchagarh |
++------+----------+-----------+----------+------------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> select * from persons order by lastname;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
++------+----------+-----------+--------------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from person order by firstname;
+ERROR 1146 (42S02): Table 'man.person' doesn't exist
+MariaDB [man]> select * from persons order by firstname;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
++------+----------+-----------+--------------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from persons order by firstname desc;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
++------+----------+-----------+--------------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from persons order by p_id desc;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
++------+----------+-----------+--------------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> select * from persons order by city asc;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
++------+----------+-----------+--------------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]> insert into persons(lastname,firstname,address,city) values('Nilsen', 'Johan', 'Bakken 2', 'Stavanger');
+Query OK, 1 row affected (0.07 sec)
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    6 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
++------+----------+-----------+--------------------+------------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> insert into person values('Nilsen', 'Johan', 'Bakken 2', 'Stavanger');
+ERROR 1146 (42S02): Table 'man.person' doesn't exist
+MariaDB [man]> insert into persons values('Nilsen', 'Johan', 'Bakken 2', 'Stavanger');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [man]> insert into persons values('7','Nilsen', 'Johan', 'Bakken 2', 'Stavanger');
+Query OK, 1 row affected (0.09 sec)
+
+MariaDB [man]> insert into persons values('7','Nilsen', 'Johan', 'Bakken 2', 'Stavanger');
+ERROR 1062 (23000): Duplicate entry '7' for key 'PRIMARY'
+MariaDB [man]> insert into persons values('8','Nilsen', 'Johan', 'Bakken 2', 'Stavanger');
+Query OK, 1 row affected (0.07 sec)
+
+MariaDB [man]> insert into persons values('9','Nilsen', 'Johan', 'Bakken 2', 'Stavanger');
+Query OK, 1 row affected (0.08 sec)
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    6 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    7 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    8 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    9 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
++------+----------+-----------+--------------------+------------+
+9 rows in set (0.00 sec)
+
+MariaDB [man]> insert into persons values('10','hasan', 'rabbi', 'setabgonj', 'dinajpur');
+Query OK, 1 row affected (0.35 sec)
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    6 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    7 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    8 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    9 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|   10 | hasan    | rabbi     | setabgonj          | dinajpur   |
++------+----------+-----------+--------------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [man]> update persons set address='nouga' city='rajshahi' where lastname='hasan' and firstname='rabbi';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'city='rajshahi' where lastname='hasan' and firstname='rabbi'' at line 1
+MariaDB [man]> update persons set address='nouga', city='rajshahi' where lastname='hasan' and firstname='rabbi';
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    6 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    7 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    8 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    9 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|   10 | hasan    | rabbi     | nouga              | rajshahi   |
++------+----------+-----------+--------------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [man]> update persons set address='nouga', city='rajshahi' where lastname='hasan' and firstname='rabbi';
+Query OK, 0 rows affected (0.07 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    6 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    7 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    8 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    9 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|   10 | hasan    | rabbi     | nouga              | rajshahi   |
++------+----------+-----------+--------------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [man]> update persons set address='nouga', city='rajshahi' where lastname='hasan' and firstname='rabbi';
+Query OK, 0 rows affected (0.07 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+MariaDB [man]>

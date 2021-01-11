@@ -1,0 +1,127 @@
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 15
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| sadik              |
+| student            |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [(none)]> use man;
+Database changed
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| persons       |
++---------------+
+1 row in set (0.00 sec)
+
+MariaDB [man]> describe persons;
++-----------+------------------+------+-----+---------+----------------+
+| Field     | Type             | Null | Key | Default | Extra          |
++-----------+------------------+------+-----+---------+----------------+
+| p_id      | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| lastname  | varchar(50)      | NO   |     | NULL    |                |
+| firstname | varchar(50)      | NO   |     | NULL    |                |
+| address   | varchar(150)     | NO   |     | NULL    |                |
+| city      | varchar(50)      | NO   |     | NULL    |                |
++-----------+------------------+------+-----+---------+----------------+
+5 rows in set (0.09 sec)
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+--------------------+------------+
+| p_id | lastname | firstname | address            | city       |
++------+----------+-----------+--------------------+------------+
+|    1 | roy      | sandip    | chattra shikar pur | panchagarh |
+|    2 | roy      | bornaly   | chirirbondor       | dinajpur   |
+|    3 | roy      | putul     | ranigonj           | dinajpur   |
+|    4 | barman   | bikash    | debigonj           | panchagarh |
+|    5 | barman   | badhon    | debigonj           | panchagarh |
+|    6 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    7 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    8 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|    9 | Nilsen   | Johan     | Bakken 2           | Stavanger  |
+|   10 | hasan    | rabbi     | nouga              | rajshahi   |
++------+----------+-----------+--------------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [man]> update persons set address='hstu',city='dinajpur';
+Query OK, 10 rows affected (0.04 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+---------+----------+
+| p_id | lastname | firstname | address | city     |
++------+----------+-----------+---------+----------+
+|    1 | roy      | sandip    | hstu    | dinajpur |
+|    2 | roy      | bornaly   | hstu    | dinajpur |
+|    3 | roy      | putul     | hstu    | dinajpur |
+|    4 | barman   | bikash    | hstu    | dinajpur |
+|    5 | barman   | badhon    | hstu    | dinajpur |
+|    6 | Nilsen   | Johan     | hstu    | dinajpur |
+|    7 | Nilsen   | Johan     | hstu    | dinajpur |
+|    8 | Nilsen   | Johan     | hstu    | dinajpur |
+|    9 | Nilsen   | Johan     | hstu    | dinajpur |
+|   10 | hasan    | rabbi     | hstu    | dinajpur |
++------+----------+-----------+---------+----------+
+10 rows in set (0.00 sec)
+
+MariaDB [man]> delete * from persons where lastname='johan';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from persons where lastname='johan'' at line 1
+MariaDB [man]> delete * from persons where lastname='Nilsen';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from persons where lastname='Nilsen'' at line 1
+MariaDB [man]> delete from persons where lastname='Nilsen';
+Query OK, 4 rows affected (0.08 sec)
+
+MariaDB [man]> select from persons;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from persons' at line 1
+MariaDB [man]> select * from persons;
++------+----------+-----------+---------+----------+
+| p_id | lastname | firstname | address | city     |
++------+----------+-----------+---------+----------+
+|    1 | roy      | sandip    | hstu    | dinajpur |
+|    2 | roy      | bornaly   | hstu    | dinajpur |
+|    3 | roy      | putul     | hstu    | dinajpur |
+|    4 | barman   | bikash    | hstu    | dinajpur |
+|    5 | barman   | badhon    | hstu    | dinajpur |
+|   10 | hasan    | rabbi     | hstu    | dinajpur |
++------+----------+-----------+---------+----------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> delete * from persons where lastname='hasan';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from persons where lastname='hasan'' at line 1
+MariaDB [man]> delete from persons where lastname='hasan';
+Query OK, 1 row affected (0.08 sec)
+
+MariaDB [man]> select * from persons;
++------+----------+-----------+---------+----------+
+| p_id | lastname | firstname | address | city     |
++------+----------+-----------+---------+----------+
+|    1 | roy      | sandip    | hstu    | dinajpur |
+|    2 | roy      | bornaly   | hstu    | dinajpur |
+|    3 | roy      | putul     | hstu    | dinajpur |
+|    4 | barman   | bikash    | hstu    | dinajpur |
+|    5 | barman   | badhon    | hstu    | dinajpur |
++------+----------+-----------+---------+----------+
+5 rows in set (0.00 sec)
+
+MariaDB [man]>

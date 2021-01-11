@@ -1,0 +1,175 @@
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 102
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| man                |
+| mysql              |
+| performance_schema |
+| pets               |
+| phpmyadmin         |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+MariaDB [(none)]> use student;
+Database changed
+MariaDB [student]> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| user              |
++-------------------+
+1 row in set (0.00 sec)
+
+MariaDB [student]> desc user;
++----------+------------------+------+-----+---------+----------------+
+| Field    | Type             | Null | Key | Default | Extra          |
++----------+------------------+------+-----+---------+----------------+
+| id       | int(11) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(25)      | NO   |     | NULL    |                |
+| password | varchar(25)      | NO   |     | NULL    |                |
+| email    | varchar(40)      | NO   |     | NULL    |                |
++----------+------------------+------+-----+---------+----------------+
+4 rows in set (0.10 sec)
+
+MariaDB [student]> select * from user;
++----+--------------+-----------+-----------------------------+
+| id | username     | password  | email                       |
++----+--------------+-----------+-----------------------------+
+|  1 | sandipan roy | 231192635 | sandipanroysandip@gmail.com |
+|  2 | sadik        | 231192635 | sadik@gmail.com             |
+|  3 | Rahim        | 231192635 | sandipanroysandip@gmail.com |
++----+--------------+-----------+-----------------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [student]> truncate table user;
+Query OK, 0 rows affected (0.24 sec)
+
+MariaDB [student]> select * from user;
+Empty set (0.00 sec)
+
+MariaDB [student]> desc user;
++----------+------------------+------+-----+---------+----------------+
+| Field    | Type             | Null | Key | Default | Extra          |
++----------+------------------+------+-----+---------+----------------+
+| id       | int(11) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(25)      | NO   |     | NULL    |                |
+| password | varchar(25)      | NO   |     | NULL    |                |
+| email    | varchar(40)      | NO   |     | NULL    |                |
++----------+------------------+------+-----+---------+----------------+
+4 rows in set (0.03 sec)
+
+MariaDB [student]> use man;
+Database changed
+MariaDB [man]> show tables;
++---------------+
+| Tables_in_man |
++---------------+
+| buyers        |
+| customer      |
+| customers     |
+| orders        |
+| persons       |
+| salary        |
+| tryers        |
++---------------+
+7 rows in set (0.00 sec)
+
+MariaDB [man]> create view customers_vuew as select name, age from customers;
+Query OK, 0 rows affected (0.04 sec)
+
+MariaDB [man]> select * from customers_view;
+ERROR 1146 (42S02): Table 'man.customers_view' doesn't exist
+MariaDB [man]> select * from customers_vuew;
++----------+-----+
+| name     | age |
++----------+-----+
+| ramesh   |  32 |
+| khilan   |  25 |
+| kaushik  |  23 |
+| chaitali |  25 |
+| Hardik   |  27 |
+| komal    |  22 |
++----------+-----+
+6 rows in set (0.06 sec)
+
+MariaDB [man]> create view customer_view as select name,age from customers where age is not null with check option;
+Query OK, 0 rows affected (0.10 sec)
+
+MariaDB [man]> select * from customer_view;
++----------+-----+
+| name     | age |
++----------+-----+
+| ramesh   |  32 |
+| khilan   |  25 |
+| kaushik  |  23 |
+| chaitali |  25 |
+| Hardik   |  27 |
+| komal    |  22 |
++----------+-----+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> update customer_view set age = 35 where name = 'ramesh';
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [man]> select * from customer_view;
++----------+-----+
+| name     | age |
++----------+-----+
+| ramesh   |  35 |
+| khilan   |  25 |
+| kaushik  |  23 |
+| chaitali |  25 |
+| Hardik   |  27 |
+| komal    |  22 |
++----------+-----+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> select * from customers;
++----+----------+-----+-----------+--------+
+| id | name     | age | address   | salary |
++----+----------+-----+-----------+--------+
+|  1 | ramesh   |  35 | ahmedabad |   2000 |
+|  2 | khilan   |  25 | delhi     |   1500 |
+|  3 | kaushik  |  23 | kota      |   2000 |
+|  4 | chaitali |  25 | mumbai    |   6500 |
+|  5 | Hardik   |  27 | bhopal    |   8500 |
+|  6 | komal    |  22 | pune      |   4500 |
++----+----------+-----+-----------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [man]> drop view customers_vuew;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [man]> show create table customers \g;
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                      |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| customers | CREATE TABLE `customers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `age` int(3) NOT NULL,
+  `address` varchar(150) NOT NULL,
+  `salary` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+ERROR: No query specified
+
+MariaDB [man]>

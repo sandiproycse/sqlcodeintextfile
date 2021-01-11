@@ -1,0 +1,83 @@
+Microsoft Windows [Version 10.0.18362.657]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.1.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases:
+    -> show databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':
+show databases' at line 1
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| sadik              |
+| student            |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+MariaDB [(none)]> select database student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'student' at line 1
+MariaDB [(none)]> select student;
+ERROR 1054 (42S22): Unknown column 'student' in 'field list'
+MariaDB [(none)]> use student;
+Database changed
+MariaDB [student]> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| user              |
++-------------------+
+1 row in set (0.00 sec)
+
+MariaDB [student]> describe user;
++----------+------------------+------+-----+---------+----------------+
+| Field    | Type             | Null | Key | Default | Extra          |
++----------+------------------+------+-----+---------+----------------+
+| id       | int(11) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(25)      | NO   |     | NULL    |                |
+| password | varchar(25)      | NO   |     | NULL    |                |
+| email    | varchar(40)      | NO   |     | NULL    |                |
++----------+------------------+------+-----+---------+----------------+
+4 rows in set (0.17 sec)
+
+MariaDB [student]> select * from user;
++----+--------------+-----------+-----------------------------+
+| id | username     | password  | email                       |
++----+--------------+-----------+-----------------------------+
+|  1 | sandipan roy | 231192635 | sandipanroysandip@gmail.com |
+|  2 | sadik        | 231192635 | sadik@gmail.com             |
+|  3 | Rahim        | 231192635 | sandipanroysandip@gmail.com |
++----+--------------+-----------+-----------------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [student]> ..\
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '..' at line 1
+MariaDB [student]> select version(), current_date;
++-----------------+--------------+
+| version()       | current_date |
++-----------------+--------------+
+| 10.1.28-MariaDB | 2020-07-31   |
++-----------------+--------------+
+1 row in set (0.00 sec)
+
+MariaDB [student]> mysql --help;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mysql --help' at line 1
+MariaDB [student]> mysql  --help
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mysql  --help' at line 1
+MariaDB [student]>

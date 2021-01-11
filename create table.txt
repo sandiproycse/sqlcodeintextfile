@@ -1,0 +1,49 @@
+//To create database
+
+CREATE DATABASE student;
+
+//To create table
+
+CREATE TABLE student (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(20),
+    major VARCHAR(20)
+);
+
+or
+
+CREATE TABLE student (
+    student_id INT,
+    name VARCHAR(20),
+    major VARCHAR(20),
+    PRIMARY KEY(student_id)
+);
+
+//To describe table or show the existing column and its data type
+
+DESCRIBE student;
+
+// To delete a table
+
+DROP TABLE student;
+
+//To modify a table or add another column, here in decimal 3 is the total number of digit and 2 is the digit after point
+
+ALTER TABLE student ADD gpa DECIMAL(3,2);
+
+//To drop a specific column from table
+
+ALTER TABLE student DROP COLUMN gpa;
+
+//To insert data in a table, we can only use this way when we insert all the attribute of the table
+
+INSERT INTO student VALUES(1, 'Jack', 'Biology');
+
+or
+
+INSERT INTO student(student_id,name,major) VALUES(1, 'Jack', 'Biology');
+
+//But when we will insert less value of the total attribute,we have to write like this
+
+INSERT INTO student(student_id, name) VALUES(3,'Claire');
+
