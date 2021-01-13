@@ -1,0 +1,167 @@
+CREATE TABLE customers(id INT PRIMARY KEY,name VARCHAR(20));
+DROP TABLE customers;
+
+DESCRIBE customers;
+CREATE TABLE customers(customer_id INT, customer_name VARCHAR(150),
+contact_name VARCHAR(100), address VARCHAR(200), city VARCHAR(20), postal_code VARCHAR(20), country VARCHAR(20), PRIMARY KEY(customer_id));
+
+INSERT INTO customers VALUES(1,'Alfreds Futterkiste','Maria Anders','Obere Str. 57','Berlin','12209','Germany');
+INSERT INTO customers VALUES(2,'Ana Trujillo Emparedados yhelados','Ana Trujillo','Avda. de la Constitucion 2222','Mexico D.F.','05021','Mexico');
+INSERT INTO customers VALUES(3,'Antonio Moreno Taqueria','Antonio Moreno','Mataderos 2312','Mexico D.F.','05023','Mexico');
+INSERT INTO customers VALUES(4,'Around the Horn','Thomas hardy','120 Hanover Sq.','London','WA11DP','UK');
+INSERT INTO customers VALUES(5,'Berglunds snabbkop','Christina Berglund','Berguvsvagen 8','Lulea','S-95822','Sweden');
+INSERT INTO customers VALUES(6,'Blauer See Delikatessen','Hanna Moos','Forsterstr. 57','Mannheim','68306','Germany');
+INSERT INTO customers VALUES(7,'Blondel pere et fils','Frederique Citeaux','24,place Kleber','Strasbourg','67000','France');
+INSERT INTO customers VALUES(8,'Bolido Comidas preparadas','Martin Sommer','C/Araquil,67','Madrid','28023','Spain');
+INSERT INTO customers VALUES(9,'Bon app','Laurence Lebihans','12,rue des Bouchers','Marseille','13008','France');
+INSERT INTO customers VALUES(10,'Bottom-Dollar Marketse','Elizabeth Lincoln','23 Tsawassen Blvd.','Tsawassen','T2F 8M4','Canada');
+INSERT INTO customers(customer_id,customer_name,contact_name,address,city,postal_code,country)
+VALUES(11,'Cardinal','Tom B. Erichsen','Skagen 21','Stavanger','4006','Norway');
+
+
+SELECT * FROM customers;
+SELECT customer_name,country FROM customers;
+SELECT customer_name,city FROM customers;
+
+SELECT country FROM customers;
+SELECT DISTINCT country FROM customers;
+
+SELECT COUNT(country) FROM customers;
+SELECT COUNT(DISTINCT country) FROM customers;
+
+SELECT * FROM customers WHERE country='Mexico';
+SELECT * FROM customers WHERE customer_id = 1;
+
+SELECT * FROM customers WHERE country='Germany' AND City = 'Berlin';
+SELECT * FROM customers WHERE city = 'Berlin' OR city = 'Munchen';
+SELECT * FROM customers WHERE country = 'Germany' OR country='Spain';
+SELECT * FROM customers WHERE NOT country = 'Germany';
+SELECT * FROM customers WHERE country = 'Germany' AND (city = 'Berlin' OR city = 'Munchen');
+SELECT * FROM customers
+WHERE NOT country = 'Germany' AND NOT country = 'USA';
+
+SELECT * FROM customers ORDER BY country;
+SELECT * FROM customers ORDER BY country DESC;
+SELECT * FROM customers ORDER BY country, customer_name;
+SELECT * FROM customers ORDER BY country ASC, customer_name DESC;
+
+INSERT INTO customers(customer_id,customer_name,city,country)
+VALUES(12,'Cardinal','Stavanger','Norway');
+
+SELECT customer_name,contact_name,address FROM customers WHERE address IS NULL;
+SELECT customer_name,contact_name,address FROM customerS WHERE address IS NOT NULL;
+
+UPDATE customers SET customer_name = 'Sandip',country = 'Bangladesh' WHERE customer_id = 12;
+UPDATE customers SET contact_name = 'Sandip Roy', city = 'Frankfurt' WHERE customer_id = 12;
+UPDATE customers SET contact_name = 'Juan' WHERE country = 'Mexico';
+
+DELETE FROM customers WHERE customer_name = 'Sandip';
+
+CREATE TABLE delete_table(id INT AUTO_INCREMENT,name VARCHAR(20),age INT, PRIMARY KEY(id));
+INSERT INTO delete_table(name,age) VALUES('Sandip',25);
+SELECT * FROM delete_table;
+DELETE FROM delete_table;
+
+SELECT * FROM customers LIMIT 3;
+select * FROM customers WHERE country = 'Germany' LIMIT 3;
+
+CREATE TABLE products(product_id INT AUTO_INCREMENT,product_name VARCHAR(200),supplier_id INT,category_id INT,unit VARCHAR(200),price DOUBLE(4,2), PRIMARY KEY(product_id));
+DESCRIBE products;
+DROP TABLE products;
+INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Chais',1,1,'10 boxes x 20 bags',18);
+SELECT * FROM products;
+INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Chang',1,1,'24 - 12 oz bottles',19);
+INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Aniseed Syrup','1','2','12 - 550 ml bottles',10);
+
+SELECT MIN(price) AS smallest_price FROM products;
+SELECT MAX(price) AS largest_price FROM products;
+
+SELECT COUNT(product_id) FROM products;
+SELECT AVG(price) FROM products;
+SELECT SUM(price) FROM products;
+
+SELECT * FROM customers WHERE customer_name LIKE 'a%';
+SELECT * FROM customers WHERE customer_name LIKE '%a';
+SELECT * FROM customers WHERE customer_name LIKE '%or%';
+SELECT * FROM customers WHERE customer_name LIKE '_r%';
+SELECT * FROM customers WHERE customer_name LIKE 'a__%';
+SELECT * FROM customers WHERE contact_name LIKE 'a%o';
+SELECT * FROM customers WHERE customer_name NOT LIKE 'a%';
+
+
+SELECT * FROM customers WHERE city LIKE 'ber%';
+SELECT * FROM customers WHERE city LIKE '%li%';
+SELECT * FROM customers WHERE city LIKE '_ondon';
+SELECT * FROM customers WHERE city LIKE 'L_n_on';
+
+SELECT * FROM customers WHERE city LIKE '[b]%';
+
+SELECT * FROM customers WHERE country IN ('Germany','France','UK');
+SELECT * FROM customers WHERE country NOT IN ('Germany','France','UK');
+
+CREATE TABLE suppliers(supplier_id INT AUTO_INCREMENT,supplier_name VARCHAR(20),supplier_country VARCHAR(20),PRIMARY KEY(supplier_id)); 
+INSERT INTO suppliers(supplier_name,supplier_country) VALUES('Sandip','UK');
+INSERT INTO suppliers(supplier_name,supplier_country) VALUES('Ayon','Germany'),
+('Rahim','France');
+INSERT INTO suppliers(supplier_name,supplier_country) VALUES('Bikash','Mexico'),('Jukty','Germany'),('Nisat','France'); 
+SELECT supplier_country FROM suppliers;
+SELECT * FROM customers WHERE country IN (SELECT supplier_country FROM suppliers);
+
+SELECT * FROM products;
+DESCRIBE products;
+INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Chef Antons Cajun Seasoning',1,2,'48-6 oz jars',22);
+SELECT * FROM products;
+INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Chef Antons Gumbo Mix',1,2,'36 boxes',21);
+
+SELECT * FROM products WHERE price BETWEEN 10 AND 20;
+SELECT * FROM products WHERE price NOT BETWEEN 10 AND 20;
+SELECT * FROM products WHERE price BETWEEN 10 AND 20 AND category_id NOT IN (1,3);
+SELECT * FROM products;
+SELECT * FROM customers WHERE customer_name BETWEEN 'Bon app' AND 'Cardinal' ORDER BY customer_name;
+SELECT * FROM customers WHERE customer_name NOT BETWEEN 'Bon app' AND 'Cardinal' ORDER BY customer_name;
+
+
+CREATE TABLE orders(order_id INT PRIMARY KEY,
+customer_id INT,employee_id INT,order_date DATE,shipper_id INT);
+DROP TABLE orders;
+INSERT INTO orders(order_id,customer_id,employee_id,order_date,shipper_id)
+VALUES(10248,90,5,'1996-04-07',3),(10249,81,6,'1996-05-07',1),
+(10250,34,4,'1996-08-07',2),(10251,84,3,'1996-09-07',1),
+(10252,76,4,'1996-10-07',2);
+SELECT * FROM orders;
+
+SELECT * FROM orders WHERE order_date BETWEEN '1996-04-07' AND '1996-09-07';
+
+SELECT customer_id AS id, customer_name AS name FROM customers;
+SELECT customer_name AS customer, contact_name AS 'contact person' FROM customers;
+
+SELECT * FROM customers;
+SELECT customer_name AS customer, CONCAT(address, ',', postal_code, ',', city, ',' ,country) AS address FROM customers;
+
+SELECT o.order_id, o.order_date, c.customer_name FROM customers AS c, orders AS o;
+SELECT o.order_id, o.order_date, c.customer_name FROM customers AS c, orders AS o WHERE c.customer_name = 'Around the Horn' AND c.customer_id = o.customer_id;
+SELECT o.order_id, o.order_date, c.customer_name FROM customers AS c, orders AS o WHERE c.customer_name = 'Around the Horn' AND c.customer_id != o.customer_id;
+SELECT o.order_id, o.order_date, c.customer_name FROM customers AS c, orders AS o WHERE c.customer_name = 'Around the Horn' AND c.customer_id <> o.customer_id;
+
+SELECT orders.order_id, orders.order_date, customers.customer_name FROM customers, orders WHERE customers.customer_name = 'Around the Horn' AND customers.customer_id != orders.customer_id;
+
+SELECT * FROM orders;
+INSERT INTO orders VALUES(10308,2,4,'1996-09-18',1),(10309,37,3,'1996-09-19',4),(10310,77,1,'1996-09-20',3);
+
+SELECT orders.order_id,customers.customer_name,orders.order_date FROM orders INNER JOIN customers;
+SELECT orders.order_id,customers.customer_name,orders.order_date FROM orders INNER JOIN customers ON orders.customer_id = customers.customer_id;
+
+CREATE TABLE order_details(order_details_id INT NOT NULL,order_id INT,product_id INT,quantity INT, PRIMARY KEY(order_details_id));
+INSERT INTO order_details VALUES(1,10248,11,12),(2,10248,42,10),(3,10248,72,5),(4,10249,14,9),(5,10249,51,40);
+SELECT * FROM order_details;
+
+CREATE TABLE supplier(supplier_id INT NOT NULL,supplier_name VARCHAR(200),contact_name VARCHAR(200),address VARCHAR(200),city VARCHAR(100),postal_code VARCHAR(100),country VARCHAR(100),PRIMARY KEY(supplier_id));
+DESCRIBE supplier;
+INSERT INTO supplier VALUES(1,'Exotic Liquid','Charlotte Cooper','49 Gibert St.','London','EC1 4SD','UK'),
+(2,'New Orleans Cajun Delights','Shelley Burke','P.O Box 78934','New Orleans','70117','USA'),
+(3,'Grandma Kellys Homestead','Regina Murphy','707 Oxford Rd.','Ann Arbor','48104','USA');
+SELECT * FROM supplier;
+
+CREATE TABLE shippers(shipper_id INT PRIMARY KEY NOT NULL,shipper_name VARCHAR(100));
+INSERT INTO shippers VALUES(1,'Speedy Express'),(2,'United Package'),(3,'Federal Shipping');
+SELECT * FROM shippers;

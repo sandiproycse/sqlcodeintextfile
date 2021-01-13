@@ -1,0 +1,1795 @@
+mysql: [Warning] C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe: ignoring option '--no-beep' due to invalid value ''.
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 39
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| girrafe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| w3schools          |
++--------------------+
+6 rows in set (0.07 sec)
+
+mysql> CREATE DATABASE study_database;
+Query OK, 1 row affected (0.18 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| girrafe            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| study_database     |
+| sys                |
+| w3schools          |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> USE study_database;
+Database changed
+mysql> CREATE TABLE customers(id INT PRIMARY KEY,name VARCHAR(20));
+Query OK, 0 rows affected (1.32 sec)
+
+mysql> DROP TABLE customers;
+Query OK, 0 rows affected (1.53 sec)
+
+mysql>
+mysql> DESCRIBE customers;
+ERROR 1146 (42S02): Table 'study_database.customers' doesn't exist
+mysql> CREATE TABLE customers(customer_id INT, customer_name VARCHAR(150),
+    -> contact_name VARCHAR(100), address VARCHAR(200), city VARCHAR(20), postal_code VARCHAR(20), country VARCHAR(20), PRIMARY KEY(customer_id));
+Query OK, 0 rows affected (0.49 sec)
+
+mysql>
+mysql> INSERT INTO customers VALUES(1,'Alfreds Futterkiste','Maria Anders','Obere Str. 57','Berlin','12209','Germany');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> INSERT INTO customers VALUES(2,'Ana Trujillo Emparedados yhelados','Ana Trujillo','Avda. de la Constitucion 2222','Mexico D.F.','05021','Mexico');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> INSERT INTO customers VALUES(3,'Antonio Moreno Taqueria','Antonio Moreno','Mataderos 2312','Mexico D.F.','05023','Mexico');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO customers VALUES(4,'Around the Horn','Thomas hardy','120 Hanover Sq.','London','WA11DP','UK');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO customers VALUES(5,'Berglunds snabbkop','Christina Berglund','Berguvsvagen 8','Lulea','S-95822','Sweden');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO customers VALUES(6,'Blauer See Delikatessen','Hanna Moos','Forsterstr. 57','Mannheim','68306','Germany');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO customers VALUES(7,'Blondel pere et fils','Frederique Citeaux','24,place Kleber','Strasbourg','67000','France');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO customers VALUES(8,'Bolido Comidas preparadas','Martin Sommer','C/Araquil,67','Madrid','28023','Spain');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO customers VALUES(9,'Bon app','Laurence Lebihans','12,rue des Bouchers','Marseille','13008','France');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO customers VALUES(10,'Bottom-Dollar Marketse','Elizabeth Lincoln','23 Tsawassen Blvd.','Tsawassen','T2F 8M4','Canada');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO customers(customer_id,customer_name,contact_name,address,city,postal_code,country)
+    -> VALUES(11,'Cardinal','Tom B. Erichsen','Skagen 21','Stavanger','4006','Norway');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> DESCRIBE customers;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| customer_id   | int          | NO   | PRI | NULL    |       |
+| customer_name | varchar(150) | YES  |     | NULL    |       |
+| contact_name  | varchar(100) | YES  |     | NULL    |       |
+| address       | varchar(200) | YES  |     | NULL    |       |
+| city          | varchar(20)  | YES  |     | NULL    |       |
+| postal_code   | varchar(20)  | YES  |     | NULL    |       |
+| country       | varchar(20)  | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT customer_name,country FROM customers;
++-----------------------------------+---------+
+| customer_name                     | country |
++-----------------------------------+---------+
+| Alfreds Futterkiste               | Germany |
+| Ana Trujillo Emparedados yhelados | Mexico  |
+| Antonio Moreno Taqueria           | Mexico  |
+| Around the Horn                   | UK      |
+| Berglunds snabbkop                | Sweden  |
+| Blauer See Delikatessen           | Germany |
+| Blondel pere et fils              | France  |
+| Bolido Comidas preparadas         | Spain   |
+| Bon app                           | France  |
+| Bottom-Dollar Marketse            | Canada  |
+| Cardinal                          | Norway  |
++-----------------------------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT customer_name,city FROM customers;
++-----------------------------------+-------------+
+| customer_name                     | city        |
++-----------------------------------+-------------+
+| Alfreds Futterkiste               | Berlin      |
+| Ana Trujillo Emparedados yhelados | Mexico D.F. |
+| Antonio Moreno Taqueria           | Mexico D.F. |
+| Around the Horn                   | London      |
+| Berglunds snabbkop                | Lulea       |
+| Blauer See Delikatessen           | Mannheim    |
+| Blondel pere et fils              | Strasbourg  |
+| Bolido Comidas preparadas         | Madrid      |
+| Bon app                           | Marseille   |
+| Bottom-Dollar Marketse            | Tsawassen   |
+| Cardinal                          | Stavanger   |
++-----------------------------------+-------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT country FROM customers;
++---------+
+| country |
++---------+
+| Germany |
+| Mexico  |
+| Mexico  |
+| UK      |
+| Sweden  |
+| Germany |
+| France  |
+| Spain   |
+| France  |
+| Canada  |
+| Norway  |
++---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT country FROM customers;
++---------+
+| country |
++---------+
+| Germany |
+| Mexico  |
+| UK      |
+| Sweden  |
+| France  |
+| Spain   |
+| Canada  |
+| Norway  |
++---------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(country) FROM customers;
++----------------+
+| COUNT(country) |
++----------------+
+|             11 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT country) FROM customers;
++-------------------------+
+| COUNT(DISTINCT country) |
++-------------------------+
+|                       8 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE customer_id = 1;
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+| customer_id | customer_name       | contact_name | address       | city   | postal_code | country |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+|           1 | Alfreds Futterkiste | Maria Anders | Obere Str. 57 | Berlin | 12209       | Germany |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE country='Mexico';
++-------------+-----------------------------------+----------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name   | address                       | city        | postal_code | country |
++-------------+-----------------------------------+----------------+-------------------------------+-------------+-------------+---------+
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo   | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
++-------------+-----------------------------------+----------------+-------------------------------+-------------+-------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE country='Germany' AND City = 'Berlin';
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+| customer_id | customer_name       | contact_name | address       | city   | postal_code | country |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+|           1 | Alfreds Futterkiste | Maria Anders | Obere Str. 57 | Berlin | 12209       | Germany |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE city = 'Berlin' OR city = 'Munchen';
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+| customer_id | customer_name       | contact_name | address       | city   | postal_code | country |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+|           1 | Alfreds Futterkiste | Maria Anders | Obere Str. 57 | Berlin | 12209       | Germany |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE country = 'Germany' OR country='Spain';
++-------------+---------------------------+---------------+----------------+----------+-------------+---------+
+| customer_id | customer_name             | contact_name  | address        | city     | postal_code | country |
++-------------+---------------------------+---------------+----------------+----------+-------------+---------+
+|           1 | Alfreds Futterkiste       | Maria Anders  | Obere Str. 57  | Berlin   | 12209       | Germany |
+|           6 | Blauer See Delikatessen   | Hanna Moos    | Forsterstr. 57 | Mannheim | 68306       | Germany |
+|           8 | Bolido Comidas preparadas | Martin Sommer | C/Araquil,67   | Madrid   | 28023       | Spain   |
++-------------+---------------------------+---------------+----------------+----------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE NOT country = 'Germany';
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE country = 'Germany' AND (city = 'Berlin' OR city = 'Munchen');
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+| customer_id | customer_name       | contact_name | address       | city   | postal_code | country |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+|           1 | Alfreds Futterkiste | Maria Anders | Obere Str. 57 | Berlin | 12209       | Germany |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> WHERE NOT country = 'Germany' AND NOT country = 'USA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE NOT country = 'Germany' AND NOT country = 'USA'' at line 1
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers
+    -> WHERE NOT country = 'Germany' AND NOT country = 'USA';
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers ORDER BY country;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers ORDER BY country DESC;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers ORDER BY country, customer_name;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers ORDER BY country ASC, customer_name DESC;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> INSERT INTO customers(customer_id,customer_name,city,country)
+    -> VALUES(12,'Cardinal','Stavanger','Norway');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> SELECT * FROM customers
+    -> ;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
+|          12 | Cardinal                          | NULL               | NULL                          | Stavanger   | NULL        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+12 rows in set (0.01 sec)
+
+mysql> SELECT customer_name,contact_name,address FROM customers WHERE address IS NULL;
++---------------+--------------+---------+
+| customer_name | contact_name | address |
++---------------+--------------+---------+
+| Cardinal      | NULL         | NULL    |
++---------------+--------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT customer_name,contact_name,address FROM customerS WHERE address IS NOT NULL;
++-----------------------------------+--------------------+-------------------------------+
+| customer_name                     | contact_name       | address                       |
++-----------------------------------+--------------------+-------------------------------+
+| Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 |
+| Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 |
+| Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                |
+| Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               |
+| Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                |
+| Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                |
+| Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               |
+| Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  |
+| Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           |
+| Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            |
+| Cardinal                          | Tom B. Erichsen    | Skagen 21                     |
++-----------------------------------+--------------------+-------------------------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
+|          12 | Cardinal                          | NULL               | NULL                          | Stavanger   | NULL        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+12 rows in set (0.00 sec)
+
+mysql> UPDATE customers SET customer_name = 'Sandip',country = 'Bangladesh' WHERE customer_id = 12;
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country    |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany    |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico     |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico     |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK         |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden     |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany    |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France     |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain      |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France     |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada     |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway     |
+|          12 | Sandip                            | NULL               | NULL                          | Stavanger   | NULL        | Bangladesh |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+12 rows in set (0.00 sec)
+
+mysql> UPDATE customers SET contact_name = 'Sandip Roy', city = 'Frankfurt' WHERE customer_id = 12;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country    |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany    |
+|           2 | Ana Trujillo Emparedados yhelados | Ana Trujillo       | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico     |
+|           3 | Antonio Moreno Taqueria           | Antonio Moreno     | Mataderos 2312                | Mexico D.F. | 05023       | Mexico     |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK         |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden     |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany    |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France     |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain      |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France     |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada     |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway     |
+|          12 | Sandip                            | Sandip Roy         | NULL                          | Frankfurt   | NULL        | Bangladesh |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+12 rows in set (0.00 sec)
+
+mysql> UPDATE customers SET contact_name = 'Juan' WHERE country = 'Mexico';
+Query OK, 2 rows affected (0.11 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country    |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany    |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico     |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico     |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK         |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden     |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany    |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France     |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain      |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France     |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada     |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway     |
+|          12 | Sandip                            | Sandip Roy         | NULL                          | Frankfurt   | NULL        | Bangladesh |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+------------+
+12 rows in set (0.00 sec)
+
+mysql> DELETE FROM customers WHERE customer_name = 'Sandip';
+Query OK, 1 row affected (0.20 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> CREATE TABLE delete_table(id INT AUTO_INCREMENT,name VARCHAR(20),age INT, PRIMARY KEY(id));
+Query OK, 0 rows affected (1.46 sec)
+
+mysql> INSERT INTO delete_table(name,age) VALUES('Sandip',25);
+Query OK, 1 row affected (0.19 sec)
+
+mysql> SELECT * FROM delete_table;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | Sandip |   25 |
++----+--------+------+
+1 row in set (0.00 sec)
+
+mysql> DELETE FROM delete_table;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> SELECT * FROM delete_table;
+Empty set (0.00 sec)
+
+mysql> DESCRIBE delete_table;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(20) | YES  |     | NULL    |                |
+| age   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.06 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.10 sec)
+
+mysql> SELECT * FROM customers LIMIT 3;
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan         | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan         | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * FROM customers WHERE country = 'Germany' LIMIT 3;
++-------------+-------------------------+--------------+----------------+----------+-------------+---------+
+| customer_id | customer_name           | contact_name | address        | city     | postal_code | country |
++-------------+-------------------------+--------------+----------------+----------+-------------+---------+
+|           1 | Alfreds Futterkiste     | Maria Anders | Obere Str. 57  | Berlin   | 12209       | Germany |
+|           6 | Blauer See Delikatessen | Hanna Moos   | Forsterstr. 57 | Mannheim | 68306       | Germany |
++-------------+-------------------------+--------------+----------------+----------+-------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE products(product_id INT AUTO_INCREMENT,product_name VARCHAR(200),supplier_id INT,category_id INT,unit VARCHAR(200),price DOUBLE(4,2), PRIMARY KEY(product_id));
+Query OK, 0 rows affected, 1 warning (0.71 sec)
+
+mysql> DESCRIBE products;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| product_id   | int          | NO   | PRI | NULL    | auto_increment |
+| product_name | varchar(200) | YES  |     | NULL    |                |
+| supplier_id  | int          | YES  |     | NULL    |                |
+| category_id  | int          | YES  |     | NULL    |                |
+| unit         | varchar(200) | YES  |     | NULL    |                |
+| price        | double(4,2)  | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Chais',1,1,'10 boxes x 20 bags',18);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Chang',1,1,'24 - 12 oz bottles',19);
+Query OK, 1 row affected (0.16 sec)
+
+mysql> INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Aniseed Syrup','1','2','12 - 550 ml bottles',10);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> SELECT * FROM products;
++------------+---------------+-------------+-------------+---------------------+-------+
+| product_id | product_name  | supplier_id | category_id | unit                | price |
++------------+---------------+-------------+-------------+---------------------+-------+
+|          1 | Chais         |           1 |           1 | 10 boxes x 20 bags  | 18.00 |
+|          2 | Chang         |           1 |           1 | 24 - 12 oz bottles  | 19.00 |
+|          3 | Aniseed Syrup |           1 |           2 | 12 - 550 ml bottles | 10.00 |
++------------+---------------+-------------+-------------+---------------------+-------+
+3 rows in set (0.06 sec)
+
+mysql> SELECT MIN(price) AS smallest_price FROM products;
++----------------+
+| smallest_price |
++----------------+
+|          10.00 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(price) AS largest_price FROM products;
++---------------+
+| largest_price |
++---------------+
+|         19.00 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(product_id) FROM products;
++-------------------+
+| COUNT(product_id) |
++-------------------+
+|                 3 |
++-------------------+
+1 row in set (0.07 sec)
+
+mysql> SELECT AVG(price) FROM products;
++------------+
+| AVG(price) |
++------------+
+|  15.666667 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(price) FROM products;
++------------+
+| SUM(price) |
++------------+
+|      47.00 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.06 sec)
+
+mysql> SELECT * FROM customers WHERE customer_name LIKE 'a%';
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan         | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan         | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy | 120 Hanover Sq.               | London      | WA11DP      | UK      |
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE customer_name LIKE '%a';
++-------------+-------------------------+--------------+----------------+-------------+-------------+---------+
+| customer_id | customer_name           | contact_name | address        | city        | postal_code | country |
++-------------+-------------------------+--------------+----------------+-------------+-------------+---------+
+|           3 | Antonio Moreno Taqueria | Juan         | Mataderos 2312 | Mexico D.F. | 05023       | Mexico  |
++-------------+-------------------------+--------------+----------------+-------------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE customer_name LIKE '%or%';
++-------------+-------------------------+--------------+-----------------+-------------+-------------+---------+
+| customer_id | customer_name           | contact_name | address         | city        | postal_code | country |
++-------------+-------------------------+--------------+-----------------+-------------+-------------+---------+
+|           3 | Antonio Moreno Taqueria | Juan         | Mataderos 2312  | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn         | Thomas hardy | 120 Hanover Sq. | London      | WA11DP      | UK      |
++-------------+-------------------------+--------------+-----------------+-------------+-------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE customer_name LIKE '_r%';
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+| customer_id | customer_name   | contact_name | address         | city   | postal_code | country |
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+|           4 | Around the Horn | Thomas hardy | 120 Hanover Sq. | London | WA11DP      | UK      |
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE customer_name LIKE 'a__%';
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan         | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan         | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy | 120 Hanover Sq.               | London      | WA11DP      | UK      |
++-------------+-----------------------------------+--------------+-------------------------------+-------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE contact_name LIKE 'a%o';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE contact_name LIKE 'a%n';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE contact_name LIKE 'A%n';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE contact_name LIKE 'A%n%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE contact_name LIKE 'a%d%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE customer_name NOT LIKE 'a%';
++-------------+---------------------------+--------------------+---------------------+------------+-------------+---------+
+| customer_id | customer_name             | contact_name       | address             | city       | postal_code | country |
++-------------+---------------------------+--------------------+---------------------+------------+-------------+---------+
+|           5 | Berglunds snabbkop        | Christina Berglund | Berguvsvagen 8      | Lulea      | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen   | Hanna Moos         | Forsterstr. 57      | Mannheim   | 68306       | Germany |
+|           7 | Blondel pere et fils      | Frederique Citeaux | 24,place Kleber     | Strasbourg | 67000       | France  |
+|           8 | Bolido Comidas preparadas | Martin Sommer      | C/Araquil,67        | Madrid     | 28023       | Spain   |
+|           9 | Bon app                   | Laurence Lebihans  | 12,rue des Bouchers | Marseille  | 13008       | France  |
+|          10 | Bottom-Dollar Marketse    | Elizabeth Lincoln  | 23 Tsawassen Blvd.  | Tsawassen  | T2F 8M4     | Canada  |
+|          11 | Cardinal                  | Tom B. Erichsen    | Skagen 21           | Stavanger  | 4006        | Norway  |
++-------------+---------------------------+--------------------+---------------------+------------+-------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE city LIKE 'ber%';
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+| customer_id | customer_name       | contact_name | address       | city   | postal_code | country |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+|           1 | Alfreds Futterkiste | Maria Anders | Obere Str. 57 | Berlin | 12209       | Germany |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE city LIKE '%li%';
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+| customer_id | customer_name       | contact_name | address       | city   | postal_code | country |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+|           1 | Alfreds Futterkiste | Maria Anders | Obere Str. 57 | Berlin | 12209       | Germany |
++-------------+---------------------+--------------+---------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE city LIKE '_ondon';
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+| customer_id | customer_name   | contact_name | address         | city   | postal_code | country |
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+|           4 | Around the Horn | Thomas hardy | 120 Hanover Sq. | London | WA11DP      | UK      |
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE city LIKE 'L_n_on';
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+| customer_id | customer_name   | contact_name | address         | city   | postal_code | country |
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+|           4 | Around the Horn | Thomas hardy | 120 Hanover Sq. | London | WA11DP      | UK      |
++-------------+-----------------+--------------+-----------------+--------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE city LIKE '[b]%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE country IN ('Germany','France','UK');
++-------------+-------------------------+--------------------+---------------------+------------+-------------+---------+
+| customer_id | customer_name           | contact_name       | address             | city       | postal_code | country |
++-------------+-------------------------+--------------------+---------------------+------------+-------------+---------+
+|           1 | Alfreds Futterkiste     | Maria Anders       | Obere Str. 57       | Berlin     | 12209       | Germany |
+|           4 | Around the Horn         | Thomas hardy       | 120 Hanover Sq.     | London     | WA11DP      | UK      |
+|           6 | Blauer See Delikatessen | Hanna Moos         | Forsterstr. 57      | Mannheim   | 68306       | Germany |
+|           7 | Blondel pere et fils    | Frederique Citeaux | 24,place Kleber     | Strasbourg | 67000       | France  |
+|           9 | Bon app                 | Laurence Lebihans  | 12,rue des Bouchers | Marseille  | 13008       | France  |
++-------------+-------------------------+--------------------+---------------------+------------+-------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE country NOT IN ('Germany','France','UK');
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE suppliers(supplier_id INT AUTO_INCREMENT,supplier_name VARCHAR(20),supplier_country VARCHAR(20),PRIMARY KEY(supplier_id));
+Query OK, 0 rows affected (0.76 sec)
+
+mysql> DESCRIBE suppliers;
++------------------+-------------+------+-----+---------+----------------+
+| Field            | Type        | Null | Key | Default | Extra          |
++------------------+-------------+------+-----+---------+----------------+
+| supplier_id      | int         | NO   | PRI | NULL    | auto_increment |
+| supplier_name    | varchar(20) | YES  |     | NULL    |                |
+| supplier_country | varchar(20) | YES  |     | NULL    |                |
++------------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.09 sec)
+
+mysql> INSERT INTO suppliers(supplier_name,supplier_country) VALUES('Sandip','UK');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> INSERT INTO suppliers(supplier_name,supplier_country) VALUES('Ayon','Germany'),
+    -> ('Rahim','France');
+Query OK, 2 rows affected (0.14 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO suppliers(supplier_name,supplier_country) VALUES('Bikash','Mexico'),('Jukty','Germany'),('Nisat','France');
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM suppliers;
++-------------+---------------+------------------+
+| supplier_id | supplier_name | supplier_country |
++-------------+---------------+------------------+
+|           1 | Sandip        | UK               |
+|           2 | Ayon          | Germany          |
+|           3 | Rahim         | France           |
+|           4 | Bikash        | Mexico           |
+|           5 | Jukty         | Germany          |
+|           6 | Nisat         | France           |
++-------------+---------------+------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT supplier_country FROM suppliers;
++------------------+
+| supplier_country |
++------------------+
+| UK               |
+| Germany          |
+| France           |
+| Mexico           |
+| Germany          |
+| France           |
++------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE country IN (SELECT supplier_country FROM suppliers);
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+7 rows in set (0.05 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM products;
++------------+---------------+-------------+-------------+---------------------+-------+
+| product_id | product_name  | supplier_id | category_id | unit                | price |
++------------+---------------+-------------+-------------+---------------------+-------+
+|          1 | Chais         |           1 |           1 | 10 boxes x 20 bags  | 18.00 |
+|          2 | Chang         |           1 |           1 | 24 - 12 oz bottles  | 19.00 |
+|          3 | Aniseed Syrup |           1 |           2 | 12 - 550 ml bottles | 10.00 |
++------------+---------------+-------------+-------------+---------------------+-------+
+3 rows in set (0.08 sec)
+
+mysql> DESCRIBE products;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| product_id   | int          | NO   | PRI | NULL    | auto_increment |
+| product_name | varchar(200) | YES  |     | NULL    |                |
+| supplier_id  | int          | YES  |     | NULL    |                |
+| category_id  | int          | YES  |     | NULL    |                |
+| unit         | varchar(200) | YES  |     | NULL    |                |
+| price        | double(4,2)  | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Chef Antons Cajun Seasoning',1,2,'48-6 oz jars',22);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> SELECT * FROM products;
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+| product_id | product_name                | supplier_id | category_id | unit                | price |
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+|          1 | Chais                       |           1 |           1 | 10 boxes x 20 bags  | 18.00 |
+|          2 | Chang                       |           1 |           1 | 24 - 12 oz bottles  | 19.00 |
+|          3 | Aniseed Syrup               |           1 |           2 | 12 - 550 ml bottles | 10.00 |
+|          4 | Chef Antons Cajun Seasoning |           1 |           2 | 48-6 oz jars        | 22.00 |
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO products(product_name,supplier_id,category_id,unit,price) VALUES('Chef Antons Gumbo Mix',1,2,'36 boxes',21);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> SELECT * FROM products;
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+| product_id | product_name                | supplier_id | category_id | unit                | price |
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+|          1 | Chais                       |           1 |           1 | 10 boxes x 20 bags  | 18.00 |
+|          2 | Chang                       |           1 |           1 | 24 - 12 oz bottles  | 19.00 |
+|          3 | Aniseed Syrup               |           1 |           2 | 12 - 550 ml bottles | 10.00 |
+|          4 | Chef Antons Cajun Seasoning |           1 |           2 | 48-6 oz jars        | 22.00 |
+|          5 | Chef Antons Gumbo Mix       |           1 |           2 | 36 boxes            | 21.00 |
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM products WHERE price BETWEEN 10 AND 20;
++------------+---------------+-------------+-------------+---------------------+-------+
+| product_id | product_name  | supplier_id | category_id | unit                | price |
++------------+---------------+-------------+-------------+---------------------+-------+
+|          1 | Chais         |           1 |           1 | 10 boxes x 20 bags  | 18.00 |
+|          2 | Chang         |           1 |           1 | 24 - 12 oz bottles  | 19.00 |
+|          3 | Aniseed Syrup |           1 |           2 | 12 - 550 ml bottles | 10.00 |
++------------+---------------+-------------+-------------+---------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM products WHERE price NOT BETWEEN 10 AND 20;
++------------+-----------------------------+-------------+-------------+--------------+-------+
+| product_id | product_name                | supplier_id | category_id | unit         | price |
++------------+-----------------------------+-------------+-------------+--------------+-------+
+|          4 | Chef Antons Cajun Seasoning |           1 |           2 | 48-6 oz jars | 22.00 |
+|          5 | Chef Antons Gumbo Mix       |           1 |           2 | 36 boxes     | 21.00 |
++------------+-----------------------------+-------------+-------------+--------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM products WHERE price BETWEEN 10 AND 20 AND category_id NOT IN (1,3);
++------------+---------------+-------------+-------------+---------------------+-------+
+| product_id | product_name  | supplier_id | category_id | unit                | price |
++------------+---------------+-------------+-------------+---------------------+-------+
+|          3 | Aniseed Syrup |           1 |           2 | 12 - 550 ml bottles | 10.00 |
++------------+---------------+-------------+-------------+---------------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM products;
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+| product_id | product_name                | supplier_id | category_id | unit                | price |
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+|          1 | Chais                       |           1 |           1 | 10 boxes x 20 bags  | 18.00 |
+|          2 | Chang                       |           1 |           1 | 24 - 12 oz bottles  | 19.00 |
+|          3 | Aniseed Syrup               |           1 |           2 | 12 - 550 ml bottles | 10.00 |
+|          4 | Chef Antons Cajun Seasoning |           1 |           2 | 48-6 oz jars        | 22.00 |
+|          5 | Chef Antons Gumbo Mix       |           1 |           2 | 36 boxes            | 21.00 |
++------------+-----------------------------+-------------+-------------+---------------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.04 sec)
+
+mysql> SELECT * FROM customers WHERE customer_name BETWEEN 'Bon app' AND 'Cardinal' ORDER BY customer_name;
++-------------+------------------------+-------------------+---------------------+-----------+-------------+---------+
+| customer_id | customer_name          | contact_name      | address             | city      | postal_code | country |
++-------------+------------------------+-------------------+---------------------+-----------+-------------+---------+
+|           9 | Bon app                | Laurence Lebihans | 12,rue des Bouchers | Marseille | 13008       | France  |
+|          10 | Bottom-Dollar Marketse | Elizabeth Lincoln | 23 Tsawassen Blvd.  | Tsawassen | T2F 8M4     | Canada  |
+|          11 | Cardinal               | Tom B. Erichsen   | Skagen 21           | Stavanger | 4006        | Norway  |
++-------------+------------------------+-------------------+---------------------+-----------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE customer_name NOT BETWEEN 'Bon app' AND 'Cardinal' ORDER BY customer_name;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> CREATE TABLE orders(order_id INT PRIMARY KEY,
+    -> customer_id INT,employee_id INT,order_date DATE,shipper_id INT);
+Query OK, 0 rows affected (1.47 sec)
+
+mysql> DESCRIBE orders;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| order_id    | int  | NO   | PRI | NULL    |       |
+| customer_id | int  | YES  |     | NULL    |       |
+| employee_id | int  | YES  |     | NULL    |       |
+| order_date  | date | YES  |     | NULL    |       |
+| shipper_id  | int  | YES  |     | NULL    |       |
++-------------+------+------+-----+---------+-------+
+5 rows in set (0.06 sec)
+
+mysql> INSERT INTO orders(order_id,customer_id,employee_id,order_date,shipper_id)
+    -> VALUES(10248,90,5,'1996-04-07',3),(10249,81,6,'1996-05-07',1),
+    -> (10250,34,4,'1996-08-07',2),(10251,84,3,'1996-09-07',1),
+    -> (10252,76,4,'1996-10-07',2);
+Query OK, 5 rows affected (0.34 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM orders;
++----------+-------------+-------------+------------+------------+
+| order_id | customer_id | employee_id | order_date | shipper_id |
++----------+-------------+-------------+------------+------------+
+|    10248 |          90 |           5 | 1996-04-07 |          3 |
+|    10249 |          81 |           6 | 1996-05-07 |          1 |
+|    10250 |          34 |           4 | 1996-08-07 |          2 |
+|    10251 |          84 |           3 | 1996-09-07 |          1 |
+|    10252 |          76 |           4 | 1996-10-07 |          2 |
++----------+-------------+-------------+------------+------------+
+5 rows in set (0.02 sec)
+
+mysql> SELECT * FROM orders WHERE order_date BETWEEN '1996-04-07' AND '1996-09-07';
++----------+-------------+-------------+------------+------------+
+| order_id | customer_id | employee_id | order_date | shipper_id |
++----------+-------------+-------------+------------+------------+
+|    10248 |          90 |           5 | 1996-04-07 |          3 |
+|    10249 |          81 |           6 | 1996-05-07 |          1 |
+|    10250 |          34 |           4 | 1996-08-07 |          2 |
+|    10251 |          84 |           3 | 1996-09-07 |          1 |
++----------+-------------+-------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.01 sec)
+
+mysql> SELECT * FROM orders;
++----------+-------------+-------------+------------+------------+
+| order_id | customer_id | employee_id | order_date | shipper_id |
++----------+-------------+-------------+------------+------------+
+|    10248 |          90 |           5 | 1996-04-07 |          3 |
+|    10249 |          81 |           6 | 1996-05-07 |          1 |
+|    10250 |          34 |           4 | 1996-08-07 |          2 |
+|    10251 |          84 |           3 | 1996-09-07 |          1 |
+|    10252 |          76 |           4 | 1996-10-07 |          2 |
++----------+-------------+-------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT customer_id AS id, customer_name AS name FROM customers;
++----+-----------------------------------+
+| id | name                              |
++----+-----------------------------------+
+|  1 | Alfreds Futterkiste               |
+|  2 | Ana Trujillo Emparedados yhelados |
+|  3 | Antonio Moreno Taqueria           |
+|  4 | Around the Horn                   |
+|  5 | Berglunds snabbkop                |
+|  6 | Blauer See Delikatessen           |
+|  7 | Blondel pere et fils              |
+|  8 | Bolido Comidas preparadas         |
+|  9 | Bon app                           |
+| 10 | Bottom-Dollar Marketse            |
+| 11 | Cardinal                          |
++----+-----------------------------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT customer_name AS customer, contact_name AS 'contact person' FROM customers;
++-----------------------------------+--------------------+
+| customer                          | contact person     |
++-----------------------------------+--------------------+
+| Alfreds Futterkiste               | Maria Anders       |
+| Ana Trujillo Emparedados yhelados | Juan               |
+| Antonio Moreno Taqueria           | Juan               |
+| Around the Horn                   | Thomas hardy       |
+| Berglunds snabbkop                | Christina Berglund |
+| Blauer See Delikatessen           | Hanna Moos         |
+| Blondel pere et fils              | Frederique Citeaux |
+| Bolido Comidas preparadas         | Martin Sommer      |
+| Bon app                           | Laurence Lebihans  |
+| Bottom-Dollar Marketse            | Elizabeth Lincoln  |
+| Cardinal                          | Tom B. Erichsen    |
++-----------------------------------+--------------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT customer_name AS customer, CONCAT(address, ',', postal_code, ',', city, ',' ,country) AS address FROM customers;
++-----------------------------------+--------------------------------------------------------+
+| customer                          | address                                                |
++-----------------------------------+--------------------------------------------------------+
+| Alfreds Futterkiste               | Obere Str. 57,12209,Berlin,Germany                     |
+| Ana Trujillo Emparedados yhelados | Avda. de la Constitucion 2222,05021,Mexico D.F.,Mexico |
+| Antonio Moreno Taqueria           | Mataderos 2312,05023,Mexico D.F.,Mexico                |
+| Around the Horn                   | 120 Hanover Sq.,WA11DP,London,UK                       |
+| Berglunds snabbkop                | Berguvsvagen 8,S-95822,Lulea,Sweden                    |
+| Blauer See Delikatessen           | Forsterstr. 57,68306,Mannheim,Germany                  |
+| Blondel pere et fils              | 24,place Kleber,67000,Strasbourg,France                |
+| Bolido Comidas preparadas         | C/Araquil,67,28023,Madrid,Spain                        |
+| Bon app                           | 12,rue des Bouchers,13008,Marseille,France             |
+| Bottom-Dollar Marketse            | 23 Tsawassen Blvd.,T2F 8M4,Tsawassen,Canada            |
+| Cardinal                          | Skagen 21,4006,Stavanger,Norway                        |
++-----------------------------------+--------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM orders;
++----------+-------------+-------------+------------+------------+
+| order_id | customer_id | employee_id | order_date | shipper_id |
++----------+-------------+-------------+------------+------------+
+|    10248 |          90 |           5 | 1996-04-07 |          3 |
+|    10249 |          81 |           6 | 1996-05-07 |          1 |
+|    10250 |          34 |           4 | 1996-08-07 |          2 |
+|    10251 |          84 |           3 | 1996-09-07 |          1 |
+|    10252 |          76 |           4 | 1996-10-07 |          2 |
++----------+-------------+-------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT o.order_id, o.order_date, c.customer_name FROM customers AS c, orders AS o;
++----------+------------+-----------------------------------+
+| order_id | order_date | customer_name                     |
++----------+------------+-----------------------------------+
+|    10248 | 1996-04-07 | Alfreds Futterkiste               |
+|    10249 | 1996-05-07 | Alfreds Futterkiste               |
+|    10250 | 1996-08-07 | Alfreds Futterkiste               |
+|    10251 | 1996-09-07 | Alfreds Futterkiste               |
+|    10252 | 1996-10-07 | Alfreds Futterkiste               |
+|    10248 | 1996-04-07 | Ana Trujillo Emparedados yhelados |
+|    10249 | 1996-05-07 | Ana Trujillo Emparedados yhelados |
+|    10250 | 1996-08-07 | Ana Trujillo Emparedados yhelados |
+|    10251 | 1996-09-07 | Ana Trujillo Emparedados yhelados |
+|    10252 | 1996-10-07 | Ana Trujillo Emparedados yhelados |
+|    10248 | 1996-04-07 | Antonio Moreno Taqueria           |
+|    10249 | 1996-05-07 | Antonio Moreno Taqueria           |
+|    10250 | 1996-08-07 | Antonio Moreno Taqueria           |
+|    10251 | 1996-09-07 | Antonio Moreno Taqueria           |
+|    10252 | 1996-10-07 | Antonio Moreno Taqueria           |
+|    10248 | 1996-04-07 | Around the Horn                   |
+|    10249 | 1996-05-07 | Around the Horn                   |
+|    10250 | 1996-08-07 | Around the Horn                   |
+|    10251 | 1996-09-07 | Around the Horn                   |
+|    10252 | 1996-10-07 | Around the Horn                   |
+|    10248 | 1996-04-07 | Berglunds snabbkop                |
+|    10249 | 1996-05-07 | Berglunds snabbkop                |
+|    10250 | 1996-08-07 | Berglunds snabbkop                |
+|    10251 | 1996-09-07 | Berglunds snabbkop                |
+|    10252 | 1996-10-07 | Berglunds snabbkop                |
+|    10248 | 1996-04-07 | Blauer See Delikatessen           |
+|    10249 | 1996-05-07 | Blauer See Delikatessen           |
+|    10250 | 1996-08-07 | Blauer See Delikatessen           |
+|    10251 | 1996-09-07 | Blauer See Delikatessen           |
+|    10252 | 1996-10-07 | Blauer See Delikatessen           |
+|    10248 | 1996-04-07 | Blondel pere et fils              |
+|    10249 | 1996-05-07 | Blondel pere et fils              |
+|    10250 | 1996-08-07 | Blondel pere et fils              |
+|    10251 | 1996-09-07 | Blondel pere et fils              |
+|    10252 | 1996-10-07 | Blondel pere et fils              |
+|    10248 | 1996-04-07 | Bolido Comidas preparadas         |
+|    10249 | 1996-05-07 | Bolido Comidas preparadas         |
+|    10250 | 1996-08-07 | Bolido Comidas preparadas         |
+|    10251 | 1996-09-07 | Bolido Comidas preparadas         |
+|    10252 | 1996-10-07 | Bolido Comidas preparadas         |
+|    10248 | 1996-04-07 | Bon app                           |
+|    10249 | 1996-05-07 | Bon app                           |
+|    10250 | 1996-08-07 | Bon app                           |
+|    10251 | 1996-09-07 | Bon app                           |
+|    10252 | 1996-10-07 | Bon app                           |
+|    10248 | 1996-04-07 | Bottom-Dollar Marketse            |
+|    10249 | 1996-05-07 | Bottom-Dollar Marketse            |
+|    10250 | 1996-08-07 | Bottom-Dollar Marketse            |
+|    10251 | 1996-09-07 | Bottom-Dollar Marketse            |
+|    10252 | 1996-10-07 | Bottom-Dollar Marketse            |
+|    10248 | 1996-04-07 | Cardinal                          |
+|    10249 | 1996-05-07 | Cardinal                          |
+|    10250 | 1996-08-07 | Cardinal                          |
+|    10251 | 1996-09-07 | Cardinal                          |
+|    10252 | 1996-10-07 | Cardinal                          |
++----------+------------+-----------------------------------+
+55 rows in set (0.00 sec)
+
+mysql> SELECT o.order_id, o.order_date, c.customer_name FROM customers AS c, orders AS o WHERE c.customer_name = 'Around the Horn' AND c.customer_id = o.customer_id;
+Empty set (0.00 sec)
+
+mysql> SELECT o.order_id, o.order_date, c.customer_name FROM customers AS c, orders AS o WHERE c.customer_name = 'Around the Horn' AND c.customer_id != o.customer_id;
++----------+------------+-----------------+
+| order_id | order_date | customer_name   |
++----------+------------+-----------------+
+|    10248 | 1996-04-07 | Around the Horn |
+|    10249 | 1996-05-07 | Around the Horn |
+|    10250 | 1996-08-07 | Around the Horn |
+|    10251 | 1996-09-07 | Around the Horn |
+|    10252 | 1996-10-07 | Around the Horn |
++----------+------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT o.order_id, o.order_date, c.customer_name FROM customers AS c, orders AS o WHERE c.customer_name = 'Around the Horn' AND c.customer_id <> o.customer_id;
++----------+------------+-----------------+
+| order_id | order_date | customer_name   |
++----------+------------+-----------------+
+|    10248 | 1996-04-07 | Around the Horn |
+|    10249 | 1996-05-07 | Around the Horn |
+|    10250 | 1996-08-07 | Around the Horn |
+|    10251 | 1996-09-07 | Around the Horn |
+|    10252 | 1996-10-07 | Around the Horn |
++----------+------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT orders.order_id, orders.order_date, customers.customer_name FROM customers, orders WHERE customers.customer_name = 'Around the Horn' AND customers.customer_id != orders.customer_id;
++----------+------------+-----------------+
+| order_id | order_date | customer_name   |
++----------+------------+-----------------+
+|    10248 | 1996-04-07 | Around the Horn |
+|    10249 | 1996-05-07 | Around the Horn |
+|    10250 | 1996-08-07 | Around the Horn |
+|    10251 | 1996-09-07 | Around the Horn |
+|    10252 | 1996-10-07 | Around the Horn |
++----------+------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM orders;
++----------+-------------+-------------+------------+------------+
+| order_id | customer_id | employee_id | order_date | shipper_id |
++----------+-------------+-------------+------------+------------+
+|    10248 |          90 |           5 | 1996-04-07 |          3 |
+|    10249 |          81 |           6 | 1996-05-07 |          1 |
+|    10250 |          34 |           4 | 1996-08-07 |          2 |
+|    10251 |          84 |           3 | 1996-09-07 |          1 |
+|    10252 |          76 |           4 | 1996-10-07 |          2 |
++----------+-------------+-------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO orders VALUES(10308,2,4,'1996-09-18',1),(10309,37,3,'1996-09-19',4),(10310,77,1,'1996-09-20',3);
+Query OK, 3 rows affected (0.20 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM orders;
++----------+-------------+-------------+------------+------------+
+| order_id | customer_id | employee_id | order_date | shipper_id |
++----------+-------------+-------------+------------+------------+
+|    10248 |          90 |           5 | 1996-04-07 |          3 |
+|    10249 |          81 |           6 | 1996-05-07 |          1 |
+|    10250 |          34 |           4 | 1996-08-07 |          2 |
+|    10251 |          84 |           3 | 1996-09-07 |          1 |
+|    10252 |          76 |           4 | 1996-10-07 |          2 |
+|    10308 |           2 |           4 | 1996-09-18 |          1 |
+|    10309 |          37 |           3 | 1996-09-19 |          4 |
+|    10310 |          77 |           1 | 1996-09-20 |          3 |
++----------+-------------+-------------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+| customer_id | customer_name                     | contact_name       | address                       | city        | postal_code | country |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+|           1 | Alfreds Futterkiste               | Maria Anders       | Obere Str. 57                 | Berlin      | 12209       | Germany |
+|           2 | Ana Trujillo Emparedados yhelados | Juan               | Avda. de la Constitucion 2222 | Mexico D.F. | 05021       | Mexico  |
+|           3 | Antonio Moreno Taqueria           | Juan               | Mataderos 2312                | Mexico D.F. | 05023       | Mexico  |
+|           4 | Around the Horn                   | Thomas hardy       | 120 Hanover Sq.               | London      | WA11DP      | UK      |
+|           5 | Berglunds snabbkop                | Christina Berglund | Berguvsvagen 8                | Lulea       | S-95822     | Sweden  |
+|           6 | Blauer See Delikatessen           | Hanna Moos         | Forsterstr. 57                | Mannheim    | 68306       | Germany |
+|           7 | Blondel pere et fils              | Frederique Citeaux | 24,place Kleber               | Strasbourg  | 67000       | France  |
+|           8 | Bolido Comidas preparadas         | Martin Sommer      | C/Araquil,67                  | Madrid      | 28023       | Spain   |
+|           9 | Bon app                           | Laurence Lebihans  | 12,rue des Bouchers           | Marseille   | 13008       | France  |
+|          10 | Bottom-Dollar Marketse            | Elizabeth Lincoln  | 23 Tsawassen Blvd.            | Tsawassen   | T2F 8M4     | Canada  |
+|          11 | Cardinal                          | Tom B. Erichsen    | Skagen 21                     | Stavanger   | 4006        | Norway  |
++-------------+-----------------------------------+--------------------+-------------------------------+-------------+-------------+---------+
+11 rows in set (0.06 sec)
+
+mysql> SELECT orders.order_id,customers.customer_name,orders.order_date FROM orders INNER JOIN customers;
++----------+-----------------------------------+------------+
+| order_id | customer_name                     | order_date |
++----------+-----------------------------------+------------+
+|    10248 | Alfreds Futterkiste               | 1996-04-07 |
+|    10249 | Alfreds Futterkiste               | 1996-05-07 |
+|    10250 | Alfreds Futterkiste               | 1996-08-07 |
+|    10251 | Alfreds Futterkiste               | 1996-09-07 |
+|    10252 | Alfreds Futterkiste               | 1996-10-07 |
+|    10308 | Alfreds Futterkiste               | 1996-09-18 |
+|    10309 | Alfreds Futterkiste               | 1996-09-19 |
+|    10310 | Alfreds Futterkiste               | 1996-09-20 |
+|    10248 | Ana Trujillo Emparedados yhelados | 1996-04-07 |
+|    10249 | Ana Trujillo Emparedados yhelados | 1996-05-07 |
+|    10250 | Ana Trujillo Emparedados yhelados | 1996-08-07 |
+|    10251 | Ana Trujillo Emparedados yhelados | 1996-09-07 |
+|    10252 | Ana Trujillo Emparedados yhelados | 1996-10-07 |
+|    10308 | Ana Trujillo Emparedados yhelados | 1996-09-18 |
+|    10309 | Ana Trujillo Emparedados yhelados | 1996-09-19 |
+|    10310 | Ana Trujillo Emparedados yhelados | 1996-09-20 |
+|    10248 | Antonio Moreno Taqueria           | 1996-04-07 |
+|    10249 | Antonio Moreno Taqueria           | 1996-05-07 |
+|    10250 | Antonio Moreno Taqueria           | 1996-08-07 |
+|    10251 | Antonio Moreno Taqueria           | 1996-09-07 |
+|    10252 | Antonio Moreno Taqueria           | 1996-10-07 |
+|    10308 | Antonio Moreno Taqueria           | 1996-09-18 |
+|    10309 | Antonio Moreno Taqueria           | 1996-09-19 |
+|    10310 | Antonio Moreno Taqueria           | 1996-09-20 |
+|    10248 | Around the Horn                   | 1996-04-07 |
+|    10249 | Around the Horn                   | 1996-05-07 |
+|    10250 | Around the Horn                   | 1996-08-07 |
+|    10251 | Around the Horn                   | 1996-09-07 |
+|    10252 | Around the Horn                   | 1996-10-07 |
+|    10308 | Around the Horn                   | 1996-09-18 |
+|    10309 | Around the Horn                   | 1996-09-19 |
+|    10310 | Around the Horn                   | 1996-09-20 |
+|    10248 | Berglunds snabbkop                | 1996-04-07 |
+|    10249 | Berglunds snabbkop                | 1996-05-07 |
+|    10250 | Berglunds snabbkop                | 1996-08-07 |
+|    10251 | Berglunds snabbkop                | 1996-09-07 |
+|    10252 | Berglunds snabbkop                | 1996-10-07 |
+|    10308 | Berglunds snabbkop                | 1996-09-18 |
+|    10309 | Berglunds snabbkop                | 1996-09-19 |
+|    10310 | Berglunds snabbkop                | 1996-09-20 |
+|    10248 | Blauer See Delikatessen           | 1996-04-07 |
+|    10249 | Blauer See Delikatessen           | 1996-05-07 |
+|    10250 | Blauer See Delikatessen           | 1996-08-07 |
+|    10251 | Blauer See Delikatessen           | 1996-09-07 |
+|    10252 | Blauer See Delikatessen           | 1996-10-07 |
+|    10308 | Blauer See Delikatessen           | 1996-09-18 |
+|    10309 | Blauer See Delikatessen           | 1996-09-19 |
+|    10310 | Blauer See Delikatessen           | 1996-09-20 |
+|    10248 | Blondel pere et fils              | 1996-04-07 |
+|    10249 | Blondel pere et fils              | 1996-05-07 |
+|    10250 | Blondel pere et fils              | 1996-08-07 |
+|    10251 | Blondel pere et fils              | 1996-09-07 |
+|    10252 | Blondel pere et fils              | 1996-10-07 |
+|    10308 | Blondel pere et fils              | 1996-09-18 |
+|    10309 | Blondel pere et fils              | 1996-09-19 |
+|    10310 | Blondel pere et fils              | 1996-09-20 |
+|    10248 | Bolido Comidas preparadas         | 1996-04-07 |
+|    10249 | Bolido Comidas preparadas         | 1996-05-07 |
+|    10250 | Bolido Comidas preparadas         | 1996-08-07 |
+|    10251 | Bolido Comidas preparadas         | 1996-09-07 |
+|    10252 | Bolido Comidas preparadas         | 1996-10-07 |
+|    10308 | Bolido Comidas preparadas         | 1996-09-18 |
+|    10309 | Bolido Comidas preparadas         | 1996-09-19 |
+|    10310 | Bolido Comidas preparadas         | 1996-09-20 |
+|    10248 | Bon app                           | 1996-04-07 |
+|    10249 | Bon app                           | 1996-05-07 |
+|    10250 | Bon app                           | 1996-08-07 |
+|    10251 | Bon app                           | 1996-09-07 |
+|    10252 | Bon app                           | 1996-10-07 |
+|    10308 | Bon app                           | 1996-09-18 |
+|    10309 | Bon app                           | 1996-09-19 |
+|    10310 | Bon app                           | 1996-09-20 |
+|    10248 | Bottom-Dollar Marketse            | 1996-04-07 |
+|    10249 | Bottom-Dollar Marketse            | 1996-05-07 |
+|    10250 | Bottom-Dollar Marketse            | 1996-08-07 |
+|    10251 | Bottom-Dollar Marketse            | 1996-09-07 |
+|    10252 | Bottom-Dollar Marketse            | 1996-10-07 |
+|    10308 | Bottom-Dollar Marketse            | 1996-09-18 |
+|    10309 | Bottom-Dollar Marketse            | 1996-09-19 |
+|    10310 | Bottom-Dollar Marketse            | 1996-09-20 |
+|    10248 | Cardinal                          | 1996-04-07 |
+|    10249 | Cardinal                          | 1996-05-07 |
+|    10250 | Cardinal                          | 1996-08-07 |
+|    10251 | Cardinal                          | 1996-09-07 |
+|    10252 | Cardinal                          | 1996-10-07 |
+|    10308 | Cardinal                          | 1996-09-18 |
+|    10309 | Cardinal                          | 1996-09-19 |
+|    10310 | Cardinal                          | 1996-09-20 |
++----------+-----------------------------------+------------+
+88 rows in set (0.00 sec)
+
+mysql> SELECT orders.order_id,customers.customer_name,orders.order_date FROM orders INNER JOIN customers ON orders.customer_id = customers.customer_id;
++----------+-----------------------------------+------------+
+| order_id | customer_name                     | order_date |
++----------+-----------------------------------+------------+
+|    10308 | Ana Trujillo Emparedados yhelados | 1996-09-18 |
++----------+-----------------------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE order_details(order_details_id INT NOT NULL,order_id INT,product_id INT,quantity INT, PRIMARY KEY(order_details_id));
+Query OK, 0 rows affected (0.65 sec)
+
+mysql> INSERT INTO order_details VALUES(1,10248,11,12),(2,10248,42,10),(3,10248,72,5),(4,10249,14,9),(5,10249,51,40);
+Query OK, 5 rows affected (0.22 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM order_details;
++------------------+----------+------------+----------+
+| order_details_id | order_id | product_id | quantity |
++------------------+----------+------------+----------+
+|                1 |    10248 |         11 |       12 |
+|                2 |    10248 |         42 |       10 |
+|                3 |    10248 |         72 |        5 |
+|                4 |    10249 |         14 |        9 |
+|                5 |    10249 |         51 |       40 |
++------------------+----------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE supplier(supplier_id INT NOT NULL,supplier_name VARCHAR(200),contact_name VARCHAR(200),address VARCHAR(200),city VARCHAR(100),postal_code VARCHAR(100),country VARCHAR(100),PRIMARY KEY(supplier_id));
+Query OK, 0 rows affected (0.94 sec)
+
+mysql> DESCRIBE supplier;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| supplier_id   | int          | NO   | PRI | NULL    |       |
+| supplier_name | varchar(200) | YES  |     | NULL    |       |
+| contact_name  | varchar(200) | YES  |     | NULL    |       |
+| address       | varchar(200) | YES  |     | NULL    |       |
+| city          | varchar(100) | YES  |     | NULL    |       |
+| postal_code   | varchar(100) | YES  |     | NULL    |       |
+| country       | varchar(100) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+7 rows in set (0.04 sec)
+
+mysql> INSERT INTO supplier VALUES(1,'Exotic Liquid','Charlotte Cooper','49 Gibert St.','London','EC1 4SD','UK'),
+    -> (2,'New Orleans Cajun Delights','Shelley Burke','P.O Box 78934','New Orleans','70117','USA'),
+    -> (3,'Grandma Kellys Homestead','Regina Murphy','707 Oxford Rd.','Ann Arbor','48104','USA');
+Query OK, 3 rows affected (0.10 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM supplier;
++-------------+----------------------------+------------------+----------------+-------------+-------------+---------+
+| supplier_id | supplier_name              | contact_name     | address        | city        | postal_code | country |
++-------------+----------------------------+------------------+----------------+-------------+-------------+---------+
+|           1 | Exotic Liquid              | Charlotte Cooper | 49 Gibert St.  | London      | EC1 4SD     | UK      |
+|           2 | New Orleans Cajun Delights | Shelley Burke    | P.O Box 78934  | New Orleans | 70117       | USA     |
+|           3 | Grandma Kellys Homestead   | Regina Murphy    | 707 Oxford Rd. | Ann Arbor   | 48104       | USA     |
++-------------+----------------------------+------------------+----------------+-------------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> CREATE TABLE shippers(shipper_id INT PRIMARY KEY NOT NULL,shipper_name VARCHAR(100));
+Query OK, 0 rows affected (0.71 sec)
+
+mysql> INSERT INTO shippers VALUES(1,'Speedy Express'),(2,'United Package'),(3,'Federal Shipping');
+Query OK, 3 rows affected (0.13 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM shippers;
++------------+------------------+
+| shipper_id | shipper_name     |
++------------+------------------+
+|          1 | Speedy Express   |
+|          2 | United Package   |
+|          3 | Federal Shipping |
++------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql>
